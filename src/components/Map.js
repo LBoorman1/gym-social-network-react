@@ -3,8 +3,6 @@ import ReactMapGL from "react-map-gl";
 
 function Map() {
   const [viewport, setViewport] = useState({
-    width: "100vw",
-    height: "100vh",
     latitude: 37.7577,
     longitude: -122.4376,
     zoom: 11,
@@ -17,13 +15,6 @@ function Map() {
       {...viewport}
       onMove={evt => setViewport(evt.viewState)}
       trackResize
-      style={{
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        width: '100%',
-        height: '100%',
-      }}
     ></ReactMapGL>
   );
 }
