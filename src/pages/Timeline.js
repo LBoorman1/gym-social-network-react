@@ -1,9 +1,14 @@
 import React from 'react'
 import Feed from '../components/Feed'
+import NavBar from '../components/NavBar'
 
 function Timeline() {
   return (
-    <Feed />
+    <div>
+      <NavBar />
+      <Feed />
+    </div>
+    
   )
 }
 

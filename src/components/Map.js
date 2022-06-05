@@ -14,7 +14,6 @@ function Map() {
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       {...viewport}
       onMove={evt => setViewport(evt.viewState)}
-      trackResize
     ></ReactMapGL>
   );
 }
