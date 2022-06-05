@@ -38,7 +38,7 @@
 }
 
 .mapboxgl-canvas {
-  position:relative; 
+  position: relative;
   top:0; 
   bottom:0; 
   left: 0;
@@ -49,9 +49,31 @@
 
 html,
 body {
+  min-height: 100%;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* overflow: hidden; */
+}
+
+body {
+  height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+div#root {
+  height: 100%; /* remove this line to see div.app is no more 100% height */
+}
+
+div.app {
+  height: 100%;
+  background-color: cornsilk;
+}
+
+#gymmap {
   overflow: hidden;
 }
