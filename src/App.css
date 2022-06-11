@@ -59,6 +59,7 @@ body {
 
 body {
   height: 100%;
+  font-family: 'Staatliches', cursive;
 }
 
 html {
@@ -77,3 +78,4 @@ div.app {
 #gymmap {
   overflow: hidden;
 }
+
