@@ -1,5 +1,4 @@
 import './App.css';
-// import NavBar from './components/NavBar';
 import Timeline from './pages/Timeline';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import GymMap from './pages/GymMap';
