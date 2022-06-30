@@ -2,17 +2,13 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import userRoutes from './routes/users.js';
+import authRoutes from './routes/auth.js';
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
-
-import postRoutes from './routes/posts.js';
-import userRoutes from './routes/users.js';
-import authRoutes from './routes/auth.js';
-
-app.use('/posts', postRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 
