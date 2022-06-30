@@ -1,5 +1,5 @@
 import express from 'express';
-import User from '../models/user.js';
+import { User } from '../models/user.js';
 import joi from "joi";
 import bcrypt from "bcrypt";
 
@@ -11,7 +11,7 @@ router.post("/", async(req, res) => {
         if(error) {
             return res.status(400).send({ message: error.details[0].message});
         }
-        const user = await User.findOne({email: req.body.email });
+        const user = await User.findOne({email: req.body.emailAddress });
         if(!user) {
             return res.status(401).send({ message: "Invalid email or password"});
         }
@@ -27,12 +27,13 @@ router.post("/", async(req, res) => {
 
     } catch (error) {
         res.status(500).send({message: "Internal Server Error"});
+        console.log(error);
     }
 });
 
 const validate = (data) => {
     const schema = joi.object({
-        email: joi.string().email().required().label("email"),
+        emailAddress: joi.string().email().required().label("emailAddress"),
         password: joi.string().required().label("password")
     })
     return schema.validate(data)
