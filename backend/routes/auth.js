@@ -7,11 +7,13 @@ const router = express.Router();
 
 router.post("/", async(req, res) => {
     try {
+        const users = await User.find({});
+        console.log(users);
         const {error} = validate(req.body);
         if(error) {
             return res.status(400).send({ message: error.details[0].message});
         }
-        const user = await User.findOne({email: req.body.emailAddress });
+        const user = await User.findOne({emailAddress: req.body.emailAddress });
         if(!user) {
             return res.status(401).send({ message: "Invalid email or password"});
         }
@@ -23,6 +25,7 @@ router.post("/", async(req, res) => {
         }
 
         const token = user.generateAuthToken();
+        
         res.status(200).send({data: token, message: "Logged in Successfully"});
 
     } catch (error) {
