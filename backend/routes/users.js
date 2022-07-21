@@ -10,11 +10,12 @@ router.post("/", async(req, res) => {
         if(error) {
             return res.status(400).send({ message: error.details[0].message});
         }
-        const email = await User.findOne({ email: req.body.emailAddress });
+        
+        const email = await User.findOne({ emailAddress: req.body.emailAddress });
         if(email) {
             return res.status(409).send({ message: "User with given email address already exists!"});
         }
-        const username = await User.findOne({ email: req.body.emailAddress });
+        const username = await User.findOne({ emailAddress: req.body.emailAddress });
         if(username) {
             return res.status(409).send({ message: "User with given username already exists!"});
         }
@@ -27,6 +28,7 @@ router.post("/", async(req, res) => {
 
 
     } catch (error) {
+        console.log(error);
         res.status(500).send({message: "Internal Server Error"});
     }
 });

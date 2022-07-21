@@ -32,11 +32,12 @@ function Register() {
         width:'100vw',
         height:'100vh'
     }}> {/* The background */}
-        <form className='flex flex-col items-center justify-center bg-white md:w-2/4 md:h-2/4 rounded' onSubmit={handleSubmit}> {/*box around the form */}
-            <div> {/*  The Register title */}
+        <form className='flex flex-col items-center justify-center bg-white rounded' onSubmit={handleSubmit}> {/*box around the form */}
+            <div className='pt-5'> {/*  The Register title */}
                 <h1 className='text-3xl'>REGISTER</h1>
-            </div>
-            <div className='md:max-w-3/4 text-xl '> {/* Box for the elements of the form */}             
+            </div> 
+            <div className='flex flex-col md:max-w-3/4 text-xl p-10'> {/* Box for the elements of the form */} 
+                           
                 <div className='flex flex-col md:flex-row md:justify-between p-2 md:w-2/4'> {/* This will be username and password */}
                     <div className='flex flex-col pr-2'> {/* One box for username */}
                         <label className='text-left'>Username</label>    
