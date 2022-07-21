@@ -14,7 +14,6 @@ export const authenticateToken = (req, res, next) => {
       return res.status(403).send({ message: error.details[0].message });
     }
     req.id = id;
-    console.log(id);
     next();
   });
 };

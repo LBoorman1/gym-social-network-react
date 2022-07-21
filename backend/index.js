@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import dotenv from "dotenv";
 import { User } from "./models/user.js";
+import PostMessage from "./models/postMessage.js";
 
 dotenv.config();
 const app = express();
@@ -31,4 +32,15 @@ const findUsers = async () => {
   console.log(users);
 };
 
-findUsers();
+const findPosts = async () => {
+  const posts = await PostMessage.find({});
+  console.log(posts);
+};
+
+const deleteAllPosts = async () => {
+  await PostMessage.deleteMany();
+};
+
+// findUsers();
+// findPosts();
+// deleteAllPosts();
