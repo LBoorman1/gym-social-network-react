@@ -4,6 +4,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'modal-bg': 'rgba(0, 0, 0, 0.5)',
+      },
       fontFamily: {
         Trispace: ["Trispace", "sans-serif"],
        },
