@@ -30,7 +30,7 @@ function NewPostModal({ show, setShow }) {
     // this is the function to send off the post request with the form attributes
     event.preventDefault();
     try {
-      const url = "http://localhost:5000/api/users"; //need to change this to be the correct url for adding a post
+      const url = "http://localhost:5000/api/posts";
       const { data: res } = await axios.post(url, data, config);
       console.log(res.message);
     } catch (error) {
@@ -53,7 +53,10 @@ function NewPostModal({ show, setShow }) {
               X
             </button>
           </div>
-          <div className="flex flex-col md:max-w-3/4 text-xl p-10">
+          <form
+            className="flex flex-col md:max-w-3/4 text-xl p-10"
+            onSubmit={handleSubmit}
+          >
             <label>Message</label>
             <input
               className="bg-gray-400 rounded placeholder-gray-300"
@@ -65,12 +68,14 @@ function NewPostModal({ show, setShow }) {
             />
 
             <div className="grid grid-cols-1 pt-5">
-              <button className="justify-self-start bg-gray-500 p-2 rounded-md">
+              <button
+                className="justify-self-start bg-gray-500 p-2 rounded-md"
+                type="submit"
+              >
                 Submit
               </button>
             </div>
-          </div>
-          {/* submit button */}
+          </form>
         </div>
       </div>
     );
