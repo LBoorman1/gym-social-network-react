@@ -24,3 +24,6 @@ code {
     monospace;
 }
 
+#noscrollbar::-webkit-scrollbar {
+  display: none;
+}
