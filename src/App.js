@@ -5,6 +5,7 @@ import GymMap from "./pages/GymMap";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import FeedNew from "./pages/FeedNew";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/Register" element={<Register />} />
           <Route exact path="/Login" element={<Login />} />
           <Route exact path="/Profile" element={<Profile />} />
+          <Route exact path="/Feed" element={<FeedNew />} />
         </Routes>
       </div>
     </Router>
