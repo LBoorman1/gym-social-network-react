@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
+import communityRoutes from "./routes/communities.js";
 import dotenv from "dotenv";
 import { User } from "./models/user.js";
 import PostMessage from "./models/postMessage.js";
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/communities", communityRoutes);
 
 const CONNECTION_URL =
   "REDACTED";
