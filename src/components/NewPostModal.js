@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setOpen } from "../redux/reducers/PostModalSlice";
 
-function NewPostModal({ show, setShow }) {
+function NewPostModal({ setShow }) {
   const [data, setData] = useState({
     postMessage: "",
   });
@@ -13,6 +15,9 @@ function NewPostModal({ show, setShow }) {
       Authorisation: `Bearer ${token}`,
     },
   };
+
+  const show = useSelector((state) => state.postModal.isOpen);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (show) {
@@ -48,7 +53,7 @@ function NewPostModal({ show, setShow }) {
             <h1 className="justify-self-start p-2">Create Post</h1>
             <button
               className="justify-self-end bg-gray-500 p-2 rounded-md"
-              onClick={() => setShow(false)}
+              onClick={() => dispatch(setOpen())}
             >
               X
             </button>

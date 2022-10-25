@@ -2,10 +2,10 @@ import React from "react";
 import NewPostModal from "./NewPostModal";
 import Post from "./Post";
 
-function Feed({ show, setShow }) {
+function Feed() {
   return (
     <div className="flex flex-col items-center w-full basis-0.7 mt-2 rounded-md">
-      <NewPostModal show={show} setShow={setShow} />
+      <NewPostModal />
       <Post
         user="LukeBWood"
         likes={0}
