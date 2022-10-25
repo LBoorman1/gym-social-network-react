@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setOpen } from "../../redux/reducers/PostModalSlice";
+import { setCommunityOpen } from "../../redux/reducers/CommunityModalSlice";
+import { setPostOpen } from "../../redux/reducers/PostModalSlice";
 
 function NavBarRow({ name, Icon }) {
   const dispatch = useDispatch();
@@ -9,8 +10,15 @@ function NavBarRow({ name, Icon }) {
     <div
       className="group flex flex-col items-center cursor-pointer hover:opacity-50"
       onClick={() => {
-        if (name == "Post") {
-          dispatch(setOpen());
+        switch (name) {
+          case "Post":
+            dispatch(setPostOpen());
+            break;
+          case "Community":
+            dispatch(setCommunityOpen());
+            break;
+          default:
+            break;
         }
       }}
     >

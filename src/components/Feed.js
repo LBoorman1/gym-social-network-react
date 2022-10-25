@@ -1,11 +1,13 @@
 import React from "react";
-import NewPostModal from "./NewPostModal";
+import NewCommunityModal from "../Modals/NewCommunityModal";
+import NewPostModal from "../Modals/NewPostModal";
 import Post from "./Post";
 
 function Feed() {
   return (
     <div className="flex flex-col items-center w-full basis-0.7 mt-2 rounded-md">
       <NewPostModal />
+      <NewCommunityModal />
       <Post
         user="LukeBWood"
         likes={0}

@@ -9,6 +9,7 @@ import communityRoutes from "./routes/communities.js";
 import dotenv from "dotenv";
 import { User } from "./models/user.js";
 import PostMessage from "./models/postMessage.js";
+import Community from "./models/community.js";
 
 dotenv.config();
 const app = express();
@@ -43,6 +44,12 @@ const deleteAllPosts = async () => {
   await PostMessage.deleteMany();
 };
 
-// findUsers();
+const findCommunities = async () => {
+  const communities = await Community.find({});
+  console.log(communities);
+};
+
+findCommunities();
+findUsers();
 // findPosts();
 // deleteAllPosts();

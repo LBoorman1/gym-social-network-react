@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isOpen: false,
+  postIsOpen: false,
 };
 
 export const PostModalSlice = createSlice({
   name: "PostModal",
   initialState,
   reducers: {
-    setOpen: (state) => {
-      state.isOpen = !state.isOpen;
+    setPostOpen: (state) => {
+      state.postIsOpen = !state.postIsOpen;
     },
   },
 });
 
-export const { setOpen } = PostModalSlice.actions;
+export const { setPostOpen } = PostModalSlice.actions;
 
 export default PostModalSlice.reducer;
