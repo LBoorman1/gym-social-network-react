@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import CommunityWidget from "../components/CommunityWidget";
+import CommunityWidget from "../components/communityWidget/CommunityWidget";
 import Feed from "../components/Feed";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/navbarComponents/NavBar";
 
 function Timeline() {
   const [show, setShow] = useState(false);
