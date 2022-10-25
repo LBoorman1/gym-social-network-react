@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/solid";
 import NavBarRow from "./NavBarRow";
 
-function NavBar({ setShow }) {
+function NavBar() {
   return (
     <div className="sticky top-0 flex w-100 px-5 py-5 bg-[#79ADDC] justify-between items-center">
       {/* Logo Section */}
@@ -18,7 +18,7 @@ function NavBar({ setShow }) {
       </div>
       {/* Middle Post Section */}
       <div className="md:absolute md:left-[50%]">
-        <NavBarRow name="Post" Icon={DocumentAddIcon} setShow={setShow} />
+        <NavBarRow name="Post" Icon={DocumentAddIcon} />
       </div>
       {/* Right Icon Section */}
       <div className="flex gap-1">
