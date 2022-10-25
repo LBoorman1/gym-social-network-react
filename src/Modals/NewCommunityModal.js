@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setOpen } from "../redux/reducers/PostModalSlice";
+import { setCommunityOpen } from "../redux/reducers/CommunityModalSlice";
 
-function NewPostModal({ setShow }) {
+function NewCommunityModal() {
   const [data, setData] = useState({
-    postMessage: "",
+    communityName: "",
+    description: "",
   });
 
   //This is the headers for the axios request to authorise token before adding a post to the user
@@ -16,7 +17,7 @@ function NewPostModal({ setShow }) {
     },
   };
 
-  const show = useSelector((state) => state.postModal.isOpen);
+  const show = useSelector((state) => state.communityModal.communityIsOpen);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,7 +36,7 @@ function NewPostModal({ setShow }) {
     // this is the function to send off the post request with the form attributes
     event.preventDefault();
     try {
-      const url = "http://localhost:5000/api/posts";
+      const url = "http://localhost:5000/api/communities/create";
       const { data: res } = await axios.post(url, data, config);
       console.log(res.message);
     } catch (error) {
@@ -50,10 +51,10 @@ function NewPostModal({ setShow }) {
       <div className="fixed top-0 left-0 right-0 bottom-0 bg-modal-bg flex items-center justify-center">
         <div className="flex flex-col items-center justify-center bg-white rounded">
           <div className="grid grid-cols-2 text-xl pt-5">
-            <h1 className="justify-self-start p-2">Create Post</h1>
+            <h1 className="justify-self-start p-2">Create Community</h1>
             <button
               className="justify-self-end bg-gray-500 p-2 rounded-md"
-              onClick={() => dispatch(setOpen())}
+              onClick={() => dispatch(setCommunityOpen())}
             >
               X
             </button>
@@ -62,14 +63,24 @@ function NewPostModal({ setShow }) {
             className="flex flex-col md:max-w-3/4 text-xl p-10"
             onSubmit={handleSubmit}
           >
-            <label>Message</label>
+            <label>Name</label>
             <input
               className="bg-gray-400 rounded placeholder-gray-300"
               type="text"
               required
-              name="postMessage"
+              name="communityName"
               onChange={handleChange}
-              value={data.postMessage}
+              value={data.communityName}
+            />
+
+            <label>Description</label>
+            <input
+              className="bg-gray-400 rounded placeholder-gray-300"
+              type="text"
+              required
+              name="description"
+              onChange={handleChange}
+              value={data.description}
             />
 
             <div className="grid grid-cols-1 pt-5">
@@ -87,4 +98,4 @@ function NewPostModal({ setShow }) {
   }
 }
 
-export default NewPostModal;
+export default NewCommunityModal;

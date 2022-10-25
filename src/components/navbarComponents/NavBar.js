@@ -17,8 +17,9 @@ function NavBar() {
         </span>
       </div>
       {/* Middle Post Section */}
-      <div className="md:absolute md:left-[50%]">
+      <div className="md:absolute md:left-[50%] flex">
         <NavBarRow name="Post" Icon={DocumentAddIcon} />
+        <NavBarRow name="Community" Icon={DocumentAddIcon} />
       </div>
       {/* Right Icon Section */}
       <div className="flex gap-1">

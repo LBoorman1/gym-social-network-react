@@ -16,7 +16,7 @@ import CommunityUser from "../models/communityUser.js";
 
 export const createCommunity = async (req, res) => {
   const communityName = req.body.communityName;
-  const creatorId = req.body.creatorId;
+  const creatorId = req.id;
   const description = req.body.description;
   const newCommunity = new Community({
     communityName: communityName,
