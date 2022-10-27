@@ -4,6 +4,7 @@ import {
   AdjustmentsIcon,
   UserIcon,
   DocumentAddIcon,
+  SearchIcon,
 } from "@heroicons/react/solid";
 import NavBarRow from "./NavBarRow";
 
@@ -20,6 +21,7 @@ function NavBar() {
       <div className="md:absolute md:left-[50%] flex">
         <NavBarRow name="Post" Icon={DocumentAddIcon} />
         <NavBarRow name="Community" Icon={DocumentAddIcon} />
+        <NavBarRow name="Search" Icon={SearchIcon} />
       </div>
       {/* Right Icon Section */}
       <div className="flex gap-1">

@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCommunityOpen } from "../../redux/reducers/CommunityModalSlice";
 import { setPostOpen } from "../../redux/reducers/PostModalSlice";
+import { setSearchOpen } from "../../redux/reducers/SearchModalSlice";
 
 function NavBarRow({ name, Icon }) {
   const dispatch = useDispatch();
@@ -16,6 +17,9 @@ function NavBarRow({ name, Icon }) {
             break;
           case "Community":
             dispatch(setCommunityOpen());
+            break;
+          case "Search":
+            dispatch(setSearchOpen());
             break;
           default:
             break;

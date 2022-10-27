@@ -1,6 +1,7 @@
 import React from "react";
-import NewCommunityModal from "../Modals/NewCommunityModal";
-import NewPostModal from "../Modals/NewPostModal";
+import CommunitySearchModal from "../../Modals/searchComponents/CommunitySearchModal";
+import NewCommunityModal from "../../Modals/NewCommunityModal";
+import NewPostModal from "../../Modals/NewPostModal";
 import Post from "./Post";
 
 function Feed() {
@@ -8,6 +9,7 @@ function Feed() {
     <div className="flex flex-col items-center w-full basis-0.7 mt-2 rounded-md">
       <NewPostModal />
       <NewCommunityModal />
+      <CommunitySearchModal />
       <Post
         user="LukeBWood"
         likes={0}

@@ -49,7 +49,8 @@ const findCommunities = async () => {
   console.log(communities);
 };
 
-findCommunities();
-findUsers();
+// findCommunities();
+// findUsers();
 // findPosts();
 // deleteAllPosts();
+//
