@@ -32,8 +32,12 @@ export const createCommunity = async (req, res) => {
 
 export const joinCommunity = async (req, res) => {
   const community = req.body.communityId;
-  const user = req.body.userId;
-  const check = CommunityUser.findOne({ community: community, user: user });
+  const user = req.id;
+
+  const check = await CommunityUser.findOne({
+    community: community,
+    user: user,
+  });
   if (check) {
     return res
       .status(409)
@@ -46,7 +50,7 @@ export const joinCommunity = async (req, res) => {
 
   try {
     await newCommunityUser.save();
-    res.status(201);
+    res.status(201).json({ message: "Successfully joined the community!" });
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -70,7 +74,7 @@ export const searchCommunity = async (req, res) => {
       },
       {
         $project: {
-          _id: 0,
+          _id: 1,
           communityName: 1,
           description: 1, //come back to this to get creator name
         },
@@ -83,4 +87,16 @@ export const searchCommunity = async (req, res) => {
     console.log(error);
     return res.json(["Error"]);
   }
+};
+
+//return the communities that a given user has joined.
+export const retrieveCommunities = async (req, res) => {
+  const user = req.id;
+
+  //gets the whole communityUsers object then extracts just the communities
+  const communityUsers = await CommunityUser.find({ user: user })
+    .populate("community")
+    .select("community");
+
+  return res.json(communityUsers);
 };

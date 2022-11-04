@@ -16,6 +16,10 @@ function SearchBar({ setSuggestions }) {
 
   const searchRequest = async () => {
     try {
+      if (searchTerm.length == 0) {
+        return 1;
+      }
+
       const url = "http://localhost:5000/api/communities/search";
       const { data } = await axios.get(url, {
         params: {

@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 import { User } from "./models/user.js";
 import PostMessage from "./models/postMessage.js";
 import Community from "./models/community.js";
+import CommunityUser from "./models/communityUser.js";
 
 dotenv.config();
 const app = express();
@@ -49,8 +50,22 @@ const findCommunities = async () => {
   console.log(communities);
 };
 
+const findCommunityUsers = async () => {
+  const communityUsers = await CommunityUser.find({});
+  console.log(communityUsers);
+};
+
+//populate allows "joins" in mongoose. Means that all data will be shown from foreign object
+const testPopulate = async () => {
+  const testing = await CommunityUser.find({})
+    .populate("community")
+    .select("community");
+  console.log(testing);
+};
+
+// testPopulate();
+// findCommunityUsers();
 // findCommunities();
 // findUsers();
 // findPosts();
 // deleteAllPosts();
-//
