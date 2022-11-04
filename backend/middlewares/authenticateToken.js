@@ -11,7 +11,7 @@ export const authenticateToken = (req, res, next) => {
 
   jwt.verify(token, process.env.JWTPRIVATEKEY, (err, id) => {
     if (err) {
-      return res.status(403).send({ message: error.details[0].message });
+      return res.status(403).send({ message: err.message });
     }
     req.id = id;
     next();

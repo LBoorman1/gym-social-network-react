@@ -1,7 +1,7 @@
 import React from "react";
 import { UserGroupIcon } from "@heroicons/react/solid";
 
-function Community({ active }) {
+function Community({ _id, name, active }) {
   return (
     <div
       className={
@@ -10,9 +10,7 @@ function Community({ active }) {
       }
     >
       <UserGroupIcon className="h-5 w-5 mr-1" />
-      <h2 className="font-semibold">
-        {active ? "Active Community" : "Other Community"}
-      </h2>
+      <h2 className="font-semibold">{name}</h2>
     </div>
   );
 }
