@@ -14,6 +14,10 @@ const postSchema = mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
   },
+  community: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Community",
+  },
 });
 
 const PostMessage = mongoose.model("PostMessage", postSchema);

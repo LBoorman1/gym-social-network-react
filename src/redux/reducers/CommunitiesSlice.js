@@ -6,6 +6,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   communities: [],
   activeCommunity: "",
+  activeCommunityName: "",
 };
 
 export const CommunitiesSlice = createSlice({
@@ -13,7 +14,8 @@ export const CommunitiesSlice = createSlice({
   initialState,
   reducers: {
     setActiveCommunity: (state, action) => {
-      state.activeCommunity = action.payload;
+      state.activeCommunity = action.payload.id;
+      state.activeCommunityName = action.payload.name;
     },
     setCommunities: (state, action) => {
       state.communities = action.payload;
