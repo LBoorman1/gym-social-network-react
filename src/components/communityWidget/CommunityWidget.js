@@ -3,10 +3,7 @@ import { useEffect } from "react";
 import Community from "./Community";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setActiveCommunity,
-  setCommunities,
-} from "../../redux/reducers/CommunitiesSlice";
+import { setCommunities } from "../../redux/reducers/CommunitiesSlice";
 
 function CommunityWidget() {
   const token = localStorage.getItem("token");
@@ -18,6 +15,9 @@ function CommunityWidget() {
 
   const dispatch = useDispatch();
   const communities = useSelector((state) => state.communities.communities);
+  const activeCommunity = useSelector(
+    (state) => state.communities.activeCommunity
+  );
 
   //make request to backend asynchronously
   const retrieveCommunities = async () => {
@@ -41,6 +41,7 @@ function CommunityWidget() {
           key={community.community._id}
           _id={community.community._id}
           name={community.community.communityName}
+          active={activeCommunity === community.community._id ? true : false}
         />
       ))}
     </div>

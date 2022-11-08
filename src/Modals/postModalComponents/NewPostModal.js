@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setPostOpen } from "../redux/reducers/PostModalSlice";
+import { setPostOpen } from "../../redux/reducers/PostModalSlice";
 
 function NewPostModal() {
+  const activeCommunity = useSelector(
+    (state) => state.communities.activeCommunity
+  );
+
   const [data, setData] = useState({
     postMessage: "",
+    communityId: activeCommunity,
   });
 
   //This is the headers for the axios request to authorise token before adding a post to the user
@@ -18,6 +23,9 @@ function NewPostModal() {
 
   const show = useSelector((state) => state.postModal.postIsOpen);
   const dispatch = useDispatch();
+  const activeCommunityName = useSelector(
+    (state) => state.communities.activeCommunityName
+  );
 
   useEffect(() => {
     if (show) {
@@ -35,7 +43,7 @@ function NewPostModal() {
     // this is the function to send off the post request with the form attributes
     event.preventDefault();
     try {
-      const url = "http://localhost:5000/api/posts";
+      const url = "http://localhost:5000/api/posts/create";
       const { data: res } = await axios.post(url, data, config);
       console.log(res.message);
     } catch (error) {
@@ -71,7 +79,7 @@ function NewPostModal() {
               onChange={handleChange}
               value={data.postMessage}
             />
-
+            <h2>Now posting in {activeCommunityName}</h2>
             <div className="grid grid-cols-1 pt-5">
               <button
                 className="justify-self-start bg-gray-500 p-2 rounded-md"

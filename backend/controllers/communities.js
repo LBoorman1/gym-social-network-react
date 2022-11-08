@@ -56,7 +56,7 @@ export const joinCommunity = async (req, res) => {
   }
 };
 
-//will have to add a pagination feature so that when the application gets big wont display massive amounts of data
+//TODO:will have to add a pagination feature so that when the application gets big wont display massive amounts of data
 export const searchCommunity = async (req, res) => {
   try {
     const communityName = req.query.searchTerm;
@@ -89,14 +89,15 @@ export const searchCommunity = async (req, res) => {
   }
 };
 
-//return the communities that a given user has joined.
 export const retrieveCommunities = async (req, res) => {
   const user = req.id;
 
-  //gets the whole communityUsers object then extracts just the communities
   const communityUsers = await CommunityUser.find({ user: user })
     .populate("community")
     .select("community");
+
+  //TODO: can be improved by narrowing down the object with js object manipulation
+  //will need to fix in the communityWidget.js file aswell
 
   return res.json(communityUsers);
 };
