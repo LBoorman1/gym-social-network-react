@@ -44,18 +44,31 @@ export const retrieveByCommunity = async (req, res) => {
     const userId = req.id;
     const communityId = req.query.communityId;
 
-    //TODO: Check whether the user is a part of the community and then allow them to view the content
-    const userCheck = await CommunityUser.findOne({
-      community: communityId,
-      user: userId,
-    });
-    if (userCheck) {
-      const posts = await PostMessage.find({ community: communityId });
-      res.status(200).json(posts);
+    if (!communityId) {
+      res.status(404).json({ message: "Select a community to view posts" });
     } else {
-      res
-        .status(404)
-        .json({ message: "User is not a member of this community!" });
+      const userCheck = await CommunityUser.findOne({
+        community: communityId,
+        user: userId,
+      });
+
+      if (userCheck) {
+        const posts = await PostMessage.find({
+          community: communityId,
+        }).populate("creator");
+        const isEmpty = Object.keys(posts).length === 0;
+        if (!isEmpty) {
+          res.status(200).json(posts);
+        } else {
+          res.status(404).json({
+            message: "There are currently no posts for this community!",
+          });
+        }
+      } else {
+        res
+          .status(404)
+          .json({ message: "User is not a member of this community!" });
+      }
     }
   } catch (error) {
     console.log(error.message);

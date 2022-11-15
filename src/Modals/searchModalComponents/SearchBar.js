@@ -3,7 +3,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchOpen } from "../../redux/reducers/SearchModalSlice";
 import { SearchIcon, XIcon } from "@heroicons/react/solid";
-import { data } from "autoprefixer";
 
 function SearchBar({ setSuggestions }) {
   const dispatch = useDispatch();
