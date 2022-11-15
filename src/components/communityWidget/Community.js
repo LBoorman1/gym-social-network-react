@@ -1,17 +1,24 @@
 import React from "react";
 import { UserGroupIcon } from "@heroicons/react/solid";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setActiveCommunity } from "../../redux/reducers/CommunitiesSlice";
+import { setPosts } from "../../redux/reducers/PostsSlice";
 
 //need to have an onCLick to set the active community
-
 function Community({ _id, name, active }) {
   const dispatch = useDispatch();
+
+  const activeCommunity = useSelector(
+    (state) => state.communities.activeCommunity
+  );
 
   return (
     <div
       onClick={() => {
         dispatch(setActiveCommunity({ id: _id, name: name }));
+        if (_id != activeCommunity) {
+          dispatch(setPosts([]));
+        }
       }}
       className={
         "flex rounded-md mb-3 p-2 " +

@@ -1,7 +1,7 @@
 import React from "react";
 import { ThumbUpIcon } from "@heroicons/react/solid";
 
-function PostNew({ user, likes, picture }) {
+function PostNew({ user, likes, picture, caption, date }) {
   return (
     <div className="postContainer bg-[#D9D9D9] h-full flex flex-col md:w-[50%] rounded-md mb-5">
       <div className="userInfo bg-white p-5 rounded-md my-5 mx-5 h-[80px] flex items-center gap-10">
@@ -18,10 +18,7 @@ function PostNew({ user, likes, picture }) {
         <div className="h-full flex flex-col justify-center items-center">
           <img className="rounded-md w-[75%]" src={picture} />
           <div className="caption bg-[#D9D9D9] m-5 rounded-md w-[75%]">
-            <p className="font-semibold p-5 text-lg">
-              This is a description given by the user. It acts as a caption for
-              the photo
-            </p>
+            <p className="font-semibold p-5 text-lg">{caption}</p>
           </div>
         </div>
       </div>

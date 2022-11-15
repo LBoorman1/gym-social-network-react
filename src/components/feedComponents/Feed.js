@@ -5,10 +5,14 @@ import NewPostModal from "../../Modals/postModalComponents/NewPostModal";
 import Post from "./Post";
 import axios from "axios";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import PostRender from "./PostRender";
+import ErrorRender from "./ErrorRender";
+import { setPosts } from "../../redux/reducers/PostsSlice";
 
 function Feed() {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
+  const [error, setError] = useState("");
 
   const token = localStorage.getItem("token");
 
@@ -16,8 +20,10 @@ function Feed() {
     (state) => state.communities.activeCommunity
   );
 
-  //TODO: The request is being made before the active community is set so a blank request is sent
-  //this is impossible
+  const posts = useSelector((state) => state.posts.posts);
+
+  const dispatch = useDispatch();
+
   const retrievePostsByCommunity = async () => {
     try {
       const url = "http://localhost:5000/api/posts/retrieveByCommunity";
@@ -29,9 +35,9 @@ function Feed() {
           Authorisation: `Bearer ${token}`,
         },
       });
-      setPosts(data);
+      dispatch(setPosts(data));
     } catch (error) {
-      console.log(error.message);
+      setError(error.response.data.message);
     }
   };
 
@@ -39,34 +45,16 @@ function Feed() {
     retrievePostsByCommunity();
   }, [activeCommunity]);
 
+  const isEmpty = Object.keys(posts).length === 0;
+
   return (
-    <div className="flex flex-col items-center w-full basis-0.7 mt-2 rounded-md">
+    <>
       <NewPostModal />
       <NewCommunityModal />
       <CommunitySearchModal />
 
-      <Post
-        user="LukeBWood"
-        likes={0}
-        picture="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
-      />
-      <Post
-        user="LukeBWood"
-        likes={54}
-        picture="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
-      />
-      <Post
-        user="LukeBWood"
-        likes={56}
-        picture="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
-      />
-      <Post
-        user="LukeBWood"
-        likes={12}
-        picture="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
-      />
-    </div>
-    //feed will have post components rendered when requested from the back end
+      {isEmpty ? <ErrorRender error={error} /> : <PostRender posts={posts} />}
+    </>
   );
 }
 

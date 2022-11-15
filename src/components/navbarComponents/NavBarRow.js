@@ -12,9 +12,6 @@ function NavBarRow({ name, Icon }) {
       className="group flex flex-col items-center cursor-pointer hover:opacity-50"
       onClick={() => {
         switch (name) {
-          case "Post":
-            dispatch(setPostOpen());
-            break;
           case "Community":
             dispatch(setCommunityOpen());
             break;
