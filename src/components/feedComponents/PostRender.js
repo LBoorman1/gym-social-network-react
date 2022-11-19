@@ -3,7 +3,7 @@ import Post from "../feedComponents/Post";
 
 function PostRender({ posts }) {
   return (
-    <div className="flex flex-col items-center w-full basis-0.7 mt-2 rounded-md">
+    <div className="flex flex-col items-center w-full mt-2 rounded-md">
       {posts.map((post) => (
         <Post
           key={post._id}

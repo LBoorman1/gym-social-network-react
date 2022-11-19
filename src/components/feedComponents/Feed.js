@@ -48,13 +48,13 @@ function Feed() {
   const isEmpty = Object.keys(posts).length === 0;
 
   return (
-    <>
+    <div className="w-[100%] md:w-auto md:basis-1/2">
       <NewPostModal />
       <NewCommunityModal />
       <CommunitySearchModal />
 
       {isEmpty ? <ErrorRender error={error} /> : <PostRender posts={posts} />}
-    </>
+    </div>
   );
 }
 
