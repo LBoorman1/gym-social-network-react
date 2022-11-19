@@ -3,7 +3,7 @@ import { ThumbUpIcon } from "@heroicons/react/solid";
 
 function PostNew({ user, likes, picture, caption, date }) {
   return (
-    <div className="postContainer bg-[#D9D9D9] h-full flex flex-col md:w-[50%] rounded-md mb-5">
+    <div className="postContainer bg-[#D9D9D9] h-full flex flex-col rounded-md mb-5">
       <div className="userInfo bg-white p-5 rounded-md my-5 mx-5 h-[80px] flex items-center gap-10">
         <div className="flex items-center">
           <span className="rounded-full bg-[#79ADDC] h-[40px] w-[40px] inline-block mr-2" />
