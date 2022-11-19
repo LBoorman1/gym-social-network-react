@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPostOpen } from "../../redux/reducers/PostModalSlice";
 
 // Need to take the active community name to display in the widget so it is clear which
 // community you are going to post to or leave.
@@ -14,6 +15,8 @@ function PostWidget() {
     (state) => state.communities.activeCommunityName
   );
 
+  const dispatch = useDispatch();
+
   return (
     <div className="bg-[#D9D9D9] p-2 hidden md:flex flex-col sticky top-[112px] mt-2 mx-2 h-fit rounded-md z-0 basis-1/4">
       <div className="bg-white rounded-t-md p-2">
@@ -26,7 +29,10 @@ function PostWidget() {
       <div className="bg-white p-2 flex flex-wrap">
         {/* This is the middle section of the post widget will contain the buttons for managing posts adding post and 
         leaving community */}
-        <button className="bg-[#79ADDC] p-2 rounded-md m-2 hover:bg-[#2274c6]">
+        <button
+          className="bg-[#79ADDC] p-2 rounded-md m-2 hover:bg-[#2274c6]"
+          onClick={() => dispatch(setPostOpen())}
+        >
           Add Post
         </button>
         <button className="bg-[#79ADDC] p-2 rounded-md m-2 hover:bg-[#2274c6]">
