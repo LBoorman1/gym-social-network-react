@@ -11,7 +11,7 @@ function Timeline() {
       <div className="flex w-full">
         <CommunityWidget />
         <Feed />
-        <AddPostButton />
+        {/* <AddPostButton /> */}
       </div>
     </div>
   );

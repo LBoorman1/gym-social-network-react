@@ -18,6 +18,16 @@ const postSchema = mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Community",
   },
+  image: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
 });
 
 const PostMessage = mongoose.model("PostMessage", postSchema);

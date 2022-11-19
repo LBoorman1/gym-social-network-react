@@ -67,5 +67,5 @@ const testPopulate = async () => {
 // findCommunityUsers();
 // findCommunities();
 // findUsers();
-// findPosts();
+findPosts();
 // deleteAllPosts();

@@ -11,6 +11,7 @@ function NewPostModal() {
   const [data, setData] = useState({
     postMessage: "",
     communityId: "",
+    image: [],
   });
 
   useEffect(() => {
@@ -41,6 +42,20 @@ function NewPostModal() {
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
+  };
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
+    console.log(file);
+  };
+
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setData({ ...data, image: reader.result });
+    };
   };
 
   const handleSubmit = async (event) => {
@@ -83,6 +98,16 @@ function NewPostModal() {
               onChange={handleChange}
               value={data.postMessage}
             />
+
+            {/* Testing new cloudinary image upload stuff */}
+            <label>Image</label>
+            <input
+              onChange={handleImage}
+              type="file"
+              name="image"
+              id="formupload"
+            />
+
             <h2>Now posting in {activeCommunityName}</h2>
             <div className="grid grid-cols-1 pt-5">
               <button
