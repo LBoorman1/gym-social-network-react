@@ -10,7 +10,7 @@ function PostRender({ posts }) {
           user={post.creator.username}
           likes={post.likeCount}
           caption={post.postMessage}
-          picture="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
+          picture={post.image.url}
         />
       ))}
     </div>
