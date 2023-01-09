@@ -38,7 +38,7 @@ function CommunityWidget() {
   }, []);
 
   return (
-    <div className="hidden md:flex flex-col items-center sticky top-[112px] bg-[#D9D9D9] mt-2 mx-2 p-2 h-fit rounded-md z-0 basis-1/4">
+    <div className="hidden md:flex flex-col items-center bg-[#D9D9D9] mx-2 p-2 md:h-fit rounded-md z-0 basis-1/4 drop-shadow-xl">
       <div className="w-full">
         {communities.map((community) => (
           <Community
