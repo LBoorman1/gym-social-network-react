@@ -1,10 +1,5 @@
 import express from "express";
-// import {
-//   createCommunity,
-//   joinCommunity,
-//   retrieveCommunities,
-//   searchCommunity,
-// } from "../controllers/communities.js";
+import { createLeaderBoard } from "../controllers/leaderBoards.js";
 import { authenticateToken } from "../middlewares/authenticateToken.js";
 
 const router = express.Router();

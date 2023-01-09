@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PostRender from "./PostRender";
 import ErrorRender from "./ErrorRender";
 import { setPosts } from "../../redux/reducers/PostsSlice";
+import NewLeaderBoardModal from "../../Modals/NewLeaderBoardModal";
 
 function Feed() {
   // const [posts, setPosts] = useState([]);
@@ -48,10 +49,11 @@ function Feed() {
   const isEmpty = Object.keys(posts).length === 0;
 
   return (
-    <div className="w-[100%] md:w-auto md:basis-1/2">
+    <div className="w-[100%] md:w-full">
       <NewPostModal />
       <NewCommunityModal />
       <CommunitySearchModal />
+      <NewLeaderBoardModal />
 
       {isEmpty ? <ErrorRender error={error} /> : <PostRender posts={posts} />}
     </div>

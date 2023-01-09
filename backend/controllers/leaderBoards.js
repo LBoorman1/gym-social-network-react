@@ -1,5 +1,6 @@
-import leaderBoard from "../models/leaderBoard";
+import leaderBoard from "../models/leaderBoard.js";
 
+//Needs updating as model has been expanded greatly, request will now transmit much more data
 export const createLeaderBoard = async (req, res) => {
   const communityId = req.body.communityId;
   const creatorId = req.id;
@@ -18,12 +19,10 @@ export const createLeaderBoard = async (req, res) => {
     });
 
     if (invalidLeaderBoard) {
-      return res
-        .status(409)
-        .send({
-          message:
-            "Leader Board already exists in this community - Try a different name",
-        });
+      return res.status(409).send({
+        message:
+          "Leader Board already exists in this community - Try a different name",
+      });
     }
     await newLeaderBoard.save();
     res.status(201);
