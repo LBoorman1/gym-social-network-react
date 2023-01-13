@@ -18,7 +18,7 @@ function PostWidget() {
   const dispatch = useDispatch();
 
   return (
-    <div className="bg-[#D9D9D9] p-2 hidden md:flex flex-col sticky top-[112px] mx-2 h-fit rounded-md z-0 drop-shadow-xl">
+    <div className="bg-[#D9D9D9] p-2 hidden md:flex flex-col mx-2 h-fit rounded-md z-0 drop-shadow-xl">
       <div className="bg-white rounded-t-md p-2">
         {/* This is the name section will need to add a redux slice with user information that is filled on login */}
         <img src=""></img>

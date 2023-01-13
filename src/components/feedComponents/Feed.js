@@ -10,6 +10,7 @@ import PostRender from "./PostRender";
 import ErrorRender from "./ErrorRender";
 import { setPosts } from "../../redux/reducers/PostsSlice";
 import NewLeaderBoardModal from "../../Modals/NewLeaderBoardModal";
+import HamburgerMenu from "../navbarComponents/HamburgerMenu";
 
 function Feed() {
   // const [posts, setPosts] = useState([]);
@@ -54,6 +55,7 @@ function Feed() {
       <NewCommunityModal />
       <CommunitySearchModal />
       <NewLeaderBoardModal />
+      <HamburgerMenu />
 
       {isEmpty ? <ErrorRender error={error} /> : <PostRender posts={posts} />}
     </div>
