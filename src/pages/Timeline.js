@@ -11,14 +11,14 @@ function Timeline() {
     <div>
       <NavBar />
       <div className="flex flex-row w-full">
-        <div className="hidden sticky top-[112px] md:flex flex-col basis-1/4 h-full gap-1 mt-2">
+        <div className="hidden sticky top-[108px] md:flex flex-col basis-1/4 h-full gap-1 mt-2">
           <CommunityWidget />
           <LeaderBoardWidget />
         </div>
         <div className="flex md:basis-1/2">
           <Feed />
         </div>
-        <div className="hidden sticky top-[112px] md:flex basis-1/4 h-full gap-1 mt-2">
+        <div className="hidden sticky top-[108px] md:flex basis-1/4 h-full gap-1 mt-2">
           <PostWidget />
         </div>
       </div>
