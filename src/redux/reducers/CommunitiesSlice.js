@@ -2,12 +2,50 @@
 //that they are currently viewing.
 
 import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   communities: [],
   activeCommunity: "",
   activeCommunityName: "",
 };
+
+export const getCommunities = createAsyncThunk(
+  "communities/getCommunities",
+  async (thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = "http://localhost:5000/api/communities/retrieve";
+      const res = await axios.get(url, {
+        headers: {
+          Authorisation: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+export const addCommunity = createAsyncThunk(
+  "communities/addCommunity",
+  async (community) => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = "http://localhost:5000/api/communities/create";
+      const res = await axios.post(url, community, {
+        headers: {
+          Authorisation: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 
 export const CommunitiesSlice = createSlice({
   name: "Communities",
@@ -20,6 +58,15 @@ export const CommunitiesSlice = createSlice({
     setCommunities: (state, action) => {
       state.communities = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(getCommunities.fulfilled, (state, action) => {
+        state.communities = action.payload;
+      })
+      .addCase(addCommunity.fulfilled, (state, action) => {
+        state.communities.push(action.payload);
+      });
   },
 });
 

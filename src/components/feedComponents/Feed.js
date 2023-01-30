@@ -8,9 +8,10 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PostRender from "./PostRender";
 import ErrorRender from "./ErrorRender";
-import { setPosts } from "../../redux/reducers/PostsSlice";
+import { getPosts, setPosts } from "../../redux/reducers/PostsSlice";
 import NewLeaderBoardModal from "../../Modals/NewLeaderBoardModal";
 import HamburgerMenu from "../navbarComponents/HamburgerMenu";
+import LeaderBoardSearch from "../../Modals/LeaderBoardSearch/LeaderBoardSearch";
 
 function Feed() {
   // const [posts, setPosts] = useState([]);
@@ -44,8 +45,8 @@ function Feed() {
   };
 
   useEffect(() => {
-    retrievePostsByCommunity();
-  }, [activeCommunity]);
+    dispatch(getPosts(activeCommunity));
+  }, [activeCommunity, dispatch]);
 
   const isEmpty = Object.keys(posts).length === 0;
 
@@ -56,6 +57,7 @@ function Feed() {
       <CommunitySearchModal />
       <NewLeaderBoardModal />
       <HamburgerMenu />
+      <LeaderBoardSearch />
 
       {isEmpty ? <ErrorRender error={error} /> : <PostRender posts={posts} />}
     </div>

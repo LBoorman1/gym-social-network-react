@@ -1,12 +1,15 @@
 import express from "express";
-import { createLeaderBoard } from "../controllers/leaderBoards.js";
+import {
+  createLeaderBoard,
+  joinLeaderBoard,
+  retrieveByCommunity,
+} from "../controllers/leaderBoards.js";
 import { authenticateToken } from "../middlewares/authenticateToken.js";
 
 const router = express.Router();
 
 router.post("/create", authenticateToken, createLeaderBoard);
-// router.post("/join", authenticateToken, joinCommunity);
-// router.get("/search", searchCommunity);
-// router.get("/retrieve", authenticateToken, retrieveCommunities);
+router.get("/retrieveByCommunity", authenticateToken, retrieveByCommunity);
+router.post("/join", authenticateToken, joinLeaderBoard);
 
 export default router;

@@ -12,6 +12,7 @@ import { User } from "./models/user.js";
 import PostMessage from "./models/postMessage.js";
 import Community from "./models/community.js";
 import CommunityUser from "./models/communityUser.js";
+import leaderBoard from "./models/leaderBoard.js";
 
 dotenv.config();
 const app = express();
@@ -65,6 +66,12 @@ const testPopulate = async () => {
   console.log(testing);
 };
 
+const findLeaderBoards = async () => {
+  const leaderBoards = await leaderBoard.find({});
+  console.log(leaderBoards);
+};
+
+// findLeaderBoards();
 // testPopulate();
 // findCommunityUsers();
 // findCommunities();

@@ -11,7 +11,7 @@ function Timeline() {
     <div>
       <NavBar />
       <div className="flex flex-row w-full">
-        <div className="hidden sticky top-[108px] md:flex flex-col basis-1/4 h-full gap-1 mt-2">
+        <div className="hidden sticky top-[108px] md:flex flex-col basis-1/4 h-full gap-1 mt-2 overflow-auto">
           <CommunityWidget />
           <LeaderBoardWidget />
         </div>

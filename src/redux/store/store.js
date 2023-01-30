@@ -6,6 +6,8 @@ import CommunitiesReducer from "../reducers/CommunitiesSlice";
 import PostsReducer from "../reducers/PostsSlice";
 import LeaderBoardModalReducer from "../reducers/LeaderBoardModalSlice";
 import HamburgerMenuSlice from "../reducers/HamburgerMenuSlice";
+import LeaderBoardsReducer from "../reducers/LeaderBoardsSlice";
+import LeaderBoardSearchReducer from "../reducers/LeaderBoardsSearchModalSlice";
 
 export default configureStore({
   reducer: {
@@ -16,5 +18,7 @@ export default configureStore({
     posts: PostsReducer,
     leaderBoardModal: LeaderBoardModalReducer,
     hamburgerMenu: HamburgerMenuSlice,
+    leaderBoards: LeaderBoardsReducer,
+    leaderBoardsSearch: LeaderBoardSearchReducer,
   },
 });

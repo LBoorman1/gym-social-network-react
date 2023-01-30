@@ -24,7 +24,15 @@ export const createCommunity = async (req, res) => {
         .send({ message: "Community already exists with given name!" });
     }
     await newCommunity.save();
-    res.status(201);
+
+    const newCommunityUser = new CommunityUser({
+      community: newCommunity._id,
+      user: creatorId,
+    });
+
+    await newCommunityUser.save();
+
+    res.status(201).json(newCommunity);
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -56,7 +64,6 @@ export const joinCommunity = async (req, res) => {
   }
 };
 
-//TODO:will have to add a pagination feature so that when the application gets big wont display massive amounts of data
 export const searchCommunity = async (req, res) => {
   try {
     const communityName = req.query.searchTerm;
@@ -92,12 +99,18 @@ export const searchCommunity = async (req, res) => {
 export const retrieveCommunities = async (req, res) => {
   const user = req.id;
 
-  const communityUsers = await CommunityUser.find({ user: user })
+  const communityUsers = await CommunityUser.find(
+    { user: user },
+    { _id: 0, community: 1 }
+  )
     .populate("community")
     .select("community");
 
-  //TODO: can be improved by narrowing down the object with js object manipulation
-  //will need to fix in the communityWidget.js file aswell
+  const communities = [];
+  for await (const doc of communityUsers) {
+    const community = await Community.findOne({ _id: doc.community._id });
+    communities.push(community);
+  }
 
-  return res.json(communityUsers);
+  return res.json(communities);
 };

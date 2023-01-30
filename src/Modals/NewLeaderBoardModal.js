@@ -3,12 +3,46 @@ import { XIcon } from "@heroicons/react/solid";
 import { useSelector, useDispatch } from "react-redux";
 import { setLeaderBoardOpen } from "../redux/reducers/LeaderBoardModalSlice";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { addLeaderBoard } from "../redux/reducers/LeaderBoardsSlice";
 
 function NewLeaderBoardModal() {
   const show = useSelector((state) => state.leaderBoardModal.leaderBoardIsOpen);
   const dispatch = useDispatch();
 
-  const [timed, setTimed] = useState(false);
+  const [data, setData] = useState({
+    communityId: "",
+    title: "",
+    description: "",
+    memberLimit: 100,
+    endDate: null,
+    timed: false,
+  });
+
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorisation: `Bearer ${token}`,
+    },
+  };
+
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
+
+  const handleSubmit = async (event) => {
+    // this is the function to send off the post request with the form attributes
+    event.preventDefault();
+    dispatch(addLeaderBoard(data));
+  };
+
+  const activeCommunity = useSelector(
+    (state) => state.communities.activeCommunity
+  );
+
+  useEffect(() => {
+    setData({ ...data, communityId: activeCommunity });
+  }, [activeCommunity]);
 
   useEffect(() => {
     if (show) {
@@ -37,7 +71,8 @@ function NewLeaderBoardModal() {
             <input
               type="text"
               name="title"
-              id="title"
+              onChange={handleChange}
+              value={data.title}
               placeholder="Title of your new leader board"
               className="bg-gray-400 rounded placeholder-gray-300 placeholder:italic placeholder:text-white p-4 w-[50%]"
             />
@@ -45,30 +80,38 @@ function NewLeaderBoardModal() {
             <textarea
               type="text"
               name="description"
-              id="description"
+              onChange={handleChange}
+              value={data.description}
               placeholder="Description of your new leader board"
               className="bg-gray-400 rounded placeholder-gray-300 placeholder:italic placeholder:text-white p-4 w-[50%] h-40"
             />
 
             <div className="flex">
+              <input type="checkbox" name="timed" id="timed" />
               <input
-                type="checkbox"
-                name="timed"
-                id="timed"
-                value={timed}
-                onClick={() => setTimed(!timed)}
+                type="date"
+                name="endDate"
+                className="rounded ml-2 bg-gray-400 p-2"
+                onChange={handleChange}
+                value={data.endDate}
               />
-
-              <input type="date" className="rounded ml-2 bg-gray-400 p-2" />
             </div>
 
             <input
               type="number"
               name="memberLimit"
-              id="memberLimit"
+              onChange={handleChange}
+              value={data.memberLimit}
               placeholder="Member Limit"
               className="bg-gray-400 rounded placeholder-gray-300 placeholder:italic placeholder:text-white"
             />
+
+            <button
+              className="p-4 bg-gray-400 rounded hover:bg-gray-500"
+              onClick={handleSubmit}
+            >
+              Create
+            </button>
           </div>
         </div>
       </div>

@@ -2,20 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setCommunityOpen } from "../redux/reducers/CommunityModalSlice";
+import { addCommunity } from "../redux/reducers/CommunitiesSlice";
 
 function NewCommunityModal() {
   const [data, setData] = useState({
     communityName: "",
     description: "",
   });
-
-  //This is the headers for the axios request to authorise token before adding a post to the user
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorisation: `Bearer ${token}`,
-    },
-  };
 
   const show = useSelector((state) => state.communityModal.communityIsOpen);
   const dispatch = useDispatch();
@@ -35,13 +28,7 @@ function NewCommunityModal() {
   const handleSubmit = async (event) => {
     // this is the function to send off the post request with the form attributes
     event.preventDefault();
-    try {
-      const url = "http://localhost:5000/api/communities/create";
-      const { data: res } = await axios.post(url, data, config);
-      console.log(res.message);
-    } catch (error) {
-      console.log(error.message);
-    }
+    dispatch(addCommunity(data));
   };
 
   if (!show) {
