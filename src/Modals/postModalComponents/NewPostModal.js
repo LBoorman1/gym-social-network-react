@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostOpen } from "../../redux/reducers/PostModalSlice";
+import { addPost } from "../../redux/reducers/PostsSlice";
 
 function NewPostModal() {
   const activeCommunity = useSelector(
@@ -28,6 +29,7 @@ function NewPostModal() {
 
   const show = useSelector((state) => state.postModal.postIsOpen);
   const dispatch = useDispatch();
+
   const activeCommunityName = useSelector(
     (state) => state.communities.activeCommunityName
   );
@@ -61,13 +63,7 @@ function NewPostModal() {
   const handleSubmit = async (event) => {
     // this is the function to send off the post request with the form attributes
     event.preventDefault();
-    try {
-      const url = "http://localhost:5000/api/posts/create";
-      const { data: res } = await axios.post(url, data, config);
-      console.log(res.message);
-    } catch (error) {
-      console.log(error.message);
-    }
+    dispatch(addPost(data));
   };
 
   if (!show) {

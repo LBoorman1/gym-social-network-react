@@ -15,10 +15,14 @@ const leaderBoardSchema = new mongoose.Schema({
   },
   endDate: {
     type: Date,
+    default: null,
   },
   title: String,
   description: String,
-  memberLimit: Number,
+  memberLimit: {
+    type: Number,
+    default: 100,
+  },
 });
 
 const leaderBoard = mongoose.model("leaderBoard", leaderBoardSchema);

@@ -32,7 +32,8 @@ export const createPost = async (req, res) => {
         },
       });
       await newPost.save();
-      res.status(201).json({ message: "Post Created Successfully" });
+
+      res.status(201).json(await newPost.populate("creator"));
     } else {
       res
         .status(404)
