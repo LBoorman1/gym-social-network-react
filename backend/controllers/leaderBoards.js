@@ -69,7 +69,7 @@ export const joinLeaderBoard = async (req, res) => {
   });
 
   try {
-    await newCommunityUser.save();
+    await newLeaderBoardUser.save();
     res.status(201).json({ message: "Successfully joined the leader board!" });
   } catch (error) {
     res.status(409).json({ message: error.message });

@@ -44,6 +44,24 @@ export const addLeaderBoard = createAsyncThunk(
   }
 );
 
+export const joinLeaderBoard = createAsyncThunk(
+  "leaderBoards/joinLeaderBoard",
+  async (leaderBoard) => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = "http://localhost:5000/api/leaderBoards/join";
+      const res = await axios.post(url, leaderBoard, {
+        headers: {
+          Authorisation: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+
 export const LeaderBoardsSlice = createSlice({
   name: "LeaderBoards",
   initialState,
