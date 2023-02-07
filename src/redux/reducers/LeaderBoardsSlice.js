@@ -3,7 +3,28 @@ import axios from "axios";
 
 const initialState = {
   leaderBoards: [],
+  userLeaderBoards: [],
+  joiningMessage: null,
 };
+
+export const getLeaderBoardsByUser = createAsyncThunk(
+  "leaderBoards/getLeaderBoardsByUser",
+  async (thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorisation: `Bearer ${token}`,
+        },
+      };
+      const url = "http://localhost:5000/api/leaderBoards/retrieveByUser";
+      const res = await axios.get(url, config);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
 
 export const getLeaderBoards = createAsyncThunk(
   "leaderBoards/getLeaderBoards",
@@ -46,18 +67,23 @@ export const addLeaderBoard = createAsyncThunk(
 
 export const joinLeaderBoard = createAsyncThunk(
   "leaderBoards/joinLeaderBoard",
-  async (leaderBoard) => {
+  async (leaderBoardId, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const url = "http://localhost:5000/api/leaderBoards/join";
-      const res = await axios.post(url, leaderBoard, {
+      const config = {
         headers: {
           Authorisation: `Bearer ${token}`,
         },
-      });
+      };
+      const url = "http://localhost:5000/api/leaderBoards/join";
+      const res = await axios.post(
+        url,
+        { leaderBoardId: leaderBoardId },
+        config
+      );
       return res.data;
     } catch (error) {
-      return error.message;
+      return thunkAPI.rejectWithValue({ error: error.message });
     }
   }
 );
@@ -77,6 +103,13 @@ export const LeaderBoardsSlice = createSlice({
       })
       .addCase(addLeaderBoard.fulfilled, (state, action) => {
         state.leaderBoards.push(action.payload);
+      })
+      .addCase(joinLeaderBoard.fulfilled, (state, action) => {
+        state.joiningMessage = action.payload;
+        state.userLeaderBoards.push(action.payload.leaderBoard);
+      })
+      .addCase(getLeaderBoardsByUser.fulfilled, (state, action) => {
+        state.userLeaderBoards = action.payload;
       });
   },
 });

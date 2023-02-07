@@ -13,6 +13,7 @@ import PostMessage from "./models/postMessage.js";
 import Community from "./models/community.js";
 import CommunityUser from "./models/communityUser.js";
 import leaderBoard from "./models/leaderBoard.js";
+import LeaderBoardUser from "./models/leaderBoardUser.js";
 
 dotenv.config();
 const app = express();
@@ -71,6 +72,15 @@ const findLeaderBoards = async () => {
   console.log(leaderBoards);
 };
 
+const findLeaderBoardUsers = async () => {
+  const leaderBoardUsers = await LeaderBoardUser.find({});
+  console.log(leaderBoardUsers);
+};
+
+const deleteLeaderBoardUsers = async () => {
+  await LeaderBoardUser.deleteMany();
+};
+
 // findLeaderBoards();
 // testPopulate();
 // findCommunityUsers();
@@ -78,3 +88,5 @@ const findLeaderBoards = async () => {
 // findUsers();
 // findPosts();
 // deleteAllPosts();
+deleteLeaderBoardUsers();
+// findLeaderBoardUsers();

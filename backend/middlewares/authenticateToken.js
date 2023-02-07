@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 export const authenticateToken = (req, res, next) => {
   //Takes the encrypted token from the request headers.
   const authHeader = req.headers["authorisation"];
+  //console.log(authHeader);
   const token = authHeader && authHeader.split(" ")[1];
 
   //Simple check to see if the token exists

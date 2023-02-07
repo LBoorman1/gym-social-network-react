@@ -6,20 +6,18 @@ import { SearchIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { setLeaderBoardOpen } from "../../redux/reducers/LeaderBoardModalSlice";
 import { useEffect } from "react";
-import { getLeaderBoards } from "../../redux/reducers/LeaderBoardsSlice";
+import { getLeaderBoardsByUser } from "../../redux/reducers/LeaderBoardsSlice";
 
 function LeaderBoardWidget() {
   const dispatch = useDispatch();
 
-  let activeCommunity = useSelector(
-    (state) => state.communities.activeCommunity
+  const leaderBoards = useSelector(
+    (state) => state.leaderBoards.userLeaderBoards
   );
 
-  const leaderBoards = useSelector((state) => state.leaderBoards.leaderBoards);
-
   useEffect(() => {
-    dispatch(getLeaderBoards(activeCommunity));
-  }, [activeCommunity, dispatch]);
+    dispatch(getLeaderBoardsByUser());
+  }, [dispatch]);
 
   return (
     <div className="hidden md:flex flex-col items-center bg-[#D9D9D9] mt-2 mx-2 p-2 h-fit rounded-md z-0 basis-1/4 drop-shadow-xl">

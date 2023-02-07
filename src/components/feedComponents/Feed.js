@@ -12,6 +12,7 @@ import { getPosts, setPosts } from "../../redux/reducers/PostsSlice";
 import NewLeaderBoardModal from "../../Modals/NewLeaderBoardModal";
 import HamburgerMenu from "../navbarComponents/HamburgerMenu";
 import LeaderBoardSearch from "../../Modals/LeaderBoardSearch/LeaderBoardSearch";
+import LeaderBoardDisplay from "../../Modals/LeaderBoardDisplay/LeaderBoardDisplay";
 
 function Feed() {
   // const [posts, setPosts] = useState([]);
@@ -58,6 +59,7 @@ function Feed() {
       <NewLeaderBoardModal />
       <HamburgerMenu />
       <LeaderBoardSearch />
+      <LeaderBoardDisplay />
 
       {isEmpty ? <ErrorRender error={error} /> : <PostRender posts={posts} />}
     </div>

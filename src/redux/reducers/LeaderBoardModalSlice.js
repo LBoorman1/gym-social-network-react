@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   leaderBoardIsOpen: false,
+  leaderBoardDisplayOpen: false,
 };
 
 export const LeaderBoardModalSlice = createSlice({
@@ -11,9 +12,13 @@ export const LeaderBoardModalSlice = createSlice({
     setLeaderBoardOpen: (state) => {
       state.leaderBoardIsOpen = !state.leaderBoardIsOpen;
     },
+    setLeaderBoardDisplayOpen: (state) => {
+      state.leaderBoardDisplayOpen = !state.leaderBoardDisplayOpen;
+    },
   },
 });
 
-export const { setLeaderBoardOpen } = LeaderBoardModalSlice.actions;
+export const { setLeaderBoardOpen, setLeaderBoardDisplayOpen } =
+  LeaderBoardModalSlice.actions;
 
 export default LeaderBoardModalSlice.reducer;
