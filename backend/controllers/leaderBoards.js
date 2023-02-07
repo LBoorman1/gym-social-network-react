@@ -50,27 +50,50 @@ export const retrieveByCommunity = async (req, res) => {
   }
 };
 
-export const joinLeaderBoard = async (req, res) => {
-  const leaderBoard = req.body.leaderBoardId;
+export const retrieveByUser = async (req, res) => {
   const user = req.id;
 
+  const leaderBoardUsers = await LeaderBoardUser.find(
+    { user: user },
+    { _id: 0, leaderBoard: 1 }
+  ).populate("leaderBoard");
+
+  const leaderBoards = [];
+  for await (const doc of leaderBoardUsers) {
+    const newLeaderBoard = await leaderBoard.findOne({
+      _id: doc.leaderBoard._id,
+    });
+    leaderBoards.push(newLeaderBoard);
+  }
+  return res.json(leaderBoards);
+};
+
+export const joinLeaderBoard = async (req, res) => {
+  const leaderBoardId = req.body.leaderBoardId;
+  const user = req.id;
+  // console.log(user);
+
   const check = await LeaderBoardUser.findOne({
-    leaderBoard: leaderBoard,
+    leaderBoard: leaderBoardId,
     user: user,
   });
   if (check) {
     return res
       .status(409)
-      .send({ message: "User is already a member of this leader board!" });
+      .send({ error: "User is already a member of this leader board!" });
   }
   const newLeaderBoardUser = new LeaderBoardUser({
-    leaderBoard: leaderBoard,
+    leaderBoard: leaderBoardId,
     user: user,
   });
 
   try {
     await newLeaderBoardUser.save();
-    res.status(201).json({ message: "Successfully joined the leader board!" });
+    const leaderBoardToAdd = await leaderBoard.findById(leaderBoardId);
+    res.status(201).json({
+      message: "Successfully joined the leader board!",
+      leaderBoard: leaderBoardToAdd,
+    });
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
