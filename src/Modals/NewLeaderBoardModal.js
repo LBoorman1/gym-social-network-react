@@ -19,13 +19,6 @@ function NewLeaderBoardModal() {
     timed: false,
   });
 
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorisation: `Bearer ${token}`,
-    },
-  };
-
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };

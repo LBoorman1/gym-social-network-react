@@ -1,4 +1,5 @@
 import leaderBoard from "../models/leaderBoard.js";
+import leaderBoardEntry from "../models/leaderBoardEntry.js";
 import LeaderBoardUser from "../models/leaderBoardUser.js";
 
 //Needs updating as model has been expanded greatly, request will now transmit much more data
@@ -93,6 +94,40 @@ export const joinLeaderBoard = async (req, res) => {
     res.status(201).json({
       message: "Successfully joined the leader board!",
       leaderBoard: leaderBoardToAdd,
+    });
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};
+
+export const addEntry = async (req, res) => {
+  const leaderBoardId = req.body.leaderBoardId;
+  const user = req.id;
+  const entry = req.body.entry;
+
+  //this will have to be changed based on leader board type i.e if its a run leader board then will have to check if there is an
+  //entry that is already less than the proposed entry.
+  const check = await leaderBoardEntry.findOne({
+    leaderBoard: leaderBoardId,
+    user: user,
+    entry: { $gte: entry },
+  });
+  if (check) {
+    return res
+      .status(409)
+      .send({ error: "User already has an entry better than this!" });
+  }
+  const newLeaderBoardEntry = new leaderBoardEntry({
+    leaderBoard: leaderBoardId,
+    user: user,
+    entry: entry,
+  });
+
+  try {
+    await newLeaderBoardEntry.save();
+    res.status(201).json({
+      message: "Successfully added the entry",
+      toUpdate: true,
     });
   } catch (error) {
     res.status(409).json({ message: error.message });
