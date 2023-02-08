@@ -8,6 +8,7 @@ import LeaderBoardModalReducer from "../reducers/LeaderBoardModalSlice";
 import HamburgerMenuSlice from "../reducers/HamburgerMenuSlice";
 import LeaderBoardsReducer from "../reducers/LeaderBoardsSlice";
 import LeaderBoardSearchReducer from "../reducers/LeaderBoardsSearchModalSlice";
+import EntriesSlice from "../reducers/EntriesSlice";
 
 export default configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export default configureStore({
     hamburgerMenu: HamburgerMenuSlice,
     leaderBoards: LeaderBoardsReducer,
     leaderBoardsSearch: LeaderBoardSearchReducer,
+    entries: EntriesSlice,
   },
 });

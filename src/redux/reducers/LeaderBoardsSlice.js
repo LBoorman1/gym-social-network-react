@@ -5,6 +5,8 @@ const initialState = {
   leaderBoards: [],
   userLeaderBoards: [],
   joiningMessage: null,
+  activeLeaderBoard: null,
+  activeLeaderBoardName: null,
 };
 
 export const getLeaderBoardsByUser = createAsyncThunk(
@@ -95,6 +97,10 @@ export const LeaderBoardsSlice = createSlice({
     setLeaderBoards: (state, action) => {
       state.posts = action.payload;
     },
+    setActiveLeaderBoard: (state, action) => {
+      state.activeLeaderBoard = action.payload.id;
+      state.activeLeaderBoardName = action.payload.name;
+    },
   },
   extraReducers(builder) {
     builder
@@ -105,7 +111,7 @@ export const LeaderBoardsSlice = createSlice({
         state.leaderBoards.push(action.payload);
       })
       .addCase(joinLeaderBoard.fulfilled, (state, action) => {
-        state.joiningMessage = action.payload;
+        state.joiningMessage = action.payload.message;
         state.userLeaderBoards.push(action.payload.leaderBoard);
       })
       .addCase(getLeaderBoardsByUser.fulfilled, (state, action) => {
@@ -114,6 +120,7 @@ export const LeaderBoardsSlice = createSlice({
   },
 });
 
-export const { setLeaderBoards } = LeaderBoardsSlice.actions;
+export const { setLeaderBoards, setActiveLeaderBoard } =
+  LeaderBoardsSlice.actions;
 
 export default LeaderBoardsSlice.reducer;
