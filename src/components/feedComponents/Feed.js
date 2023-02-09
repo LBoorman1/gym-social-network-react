@@ -18,8 +18,6 @@ function Feed() {
   // const [posts, setPosts] = useState([]);
   const [error, setError] = useState("");
 
-  const token = localStorage.getItem("token");
-
   const activeCommunity = useSelector(
     (state) => state.communities.activeCommunity
   );
@@ -28,25 +26,10 @@ function Feed() {
 
   const dispatch = useDispatch();
 
-  const retrievePostsByCommunity = async () => {
-    try {
-      const url = "http://localhost:5000/api/posts/retrieveByCommunity";
-      const { data } = await axios.get(url, {
-        params: {
-          communityId: activeCommunity,
-        },
-        headers: {
-          Authorisation: `Bearer ${token}`,
-        },
-      });
-      dispatch(setPosts(data));
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-  };
-
   useEffect(() => {
-    dispatch(getPosts(activeCommunity));
+    if (activeCommunity != null) {
+      dispatch(getPosts(activeCommunity));
+    }
   }, [activeCommunity, dispatch]);
 
   const isEmpty = Object.keys(posts).length === 0;

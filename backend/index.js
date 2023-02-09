@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import communityRoutes from "./routes/communities.js";
 import leaderBoardRoutes from "./routes/leaderBoards.js";
+import entryRoutes from "./routes/entries.js";
 import dotenv from "dotenv";
 import { User } from "./models/user.js";
 import PostMessage from "./models/postMessage.js";
@@ -26,6 +27,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/communities", communityRoutes);
 app.use("/api/leaderBoards", leaderBoardRoutes);
+app.use("/api/entries", entryRoutes);
 
 const CONNECTION_URL =
   "REDACTED";

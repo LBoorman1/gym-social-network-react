@@ -25,7 +25,9 @@ function LeaderBoardSearch() {
   );
 
   useEffect(() => {
-    dispatch(getLeaderBoards(activeCommunity));
+    if (activeCommunity != null) {
+      dispatch(getLeaderBoards(activeCommunity));
+    }
   }, [activeCommunity, dispatch]);
 
   let activeCommunityName = useSelector(

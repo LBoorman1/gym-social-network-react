@@ -1,6 +1,5 @@
 import express from "express";
 import {
-  addEntry,
   createLeaderBoard,
   joinLeaderBoard,
   retrieveByCommunity,
@@ -14,7 +13,5 @@ router.post("/create", authenticateToken, createLeaderBoard);
 router.get("/retrieveByCommunity", authenticateToken, retrieveByCommunity);
 router.post("/join", authenticateToken, joinLeaderBoard);
 router.get("/retrieveByUser", authenticateToken, retrieveByUser);
-
-router.post("/addEntry", authenticateToken, addEntry);
 
 export default router;
