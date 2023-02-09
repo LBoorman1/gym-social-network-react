@@ -7,7 +7,7 @@ import axios from "axios";
 
 const initialState = {
   communities: [],
-  activeCommunity: "",
+  activeCommunity: null,
   activeCommunityName: "",
 };
 

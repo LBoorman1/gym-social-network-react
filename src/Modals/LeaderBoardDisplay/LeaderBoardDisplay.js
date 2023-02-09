@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { setLeaderBoardDisplayOpen } from "../../redux/reducers/LeaderBoardModalSlice";
 import { XIcon } from "@heroicons/react/solid";
+import { setActiveLeaderBoard } from "../../redux/reducers/LeaderBoardsSlice";
 import {
-  addLeaderBoardEntry,
-  setActiveLeaderBoard,
-} from "../../redux/reducers/LeaderBoardsSlice";
+  getTopTenEntries,
+  setToUpdate,
+} from "../../redux/reducers/EntriesSlice";
 import AddEntry from "./AddEntry";
 import { setAddEntryOpen } from "../../redux/reducers/EntriesSlice";
 
@@ -19,7 +20,35 @@ function LeaderBoardDisplay() {
     (state) => state.leaderBoards.activeLeaderBoardName
   );
 
+  const activeLeaderBoard = useSelector(
+    (state) => state.leaderBoards.activeLeaderBoard
+  );
+
+  const toUpdate = useSelector((state) => state.entries.toUpdate);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [show]);
+
+  useEffect(() => {
+    if (activeLeaderBoard != null || toUpdate == true) {
+      dispatch(getTopTenEntries(activeLeaderBoard));
+      dispatch(setToUpdate(false));
+    }
+  }, [dispatch, activeLeaderBoard, toUpdate]);
+
+  const topTen = useSelector((state) => state.entries.topTenEntries);
+
+  const getFormattedDate = (dateStr) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString();
+  };
 
   if (!show) {
     return null;
@@ -60,66 +89,26 @@ function LeaderBoardDisplay() {
                   </div>
                 </div>
               </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
-              <div className="flex h-14 items-center justify-between w-full">
-                <div className="table-cell w-1/4 font-poppins">10</div>
-                <div className="table-cell w-1/4 font-poppins">Luke</div>
-                <div className="table-cell w-1/4 font-poppins">120kg</div>
-                <div className="table-cell w-1/4 font-poppins">12/02/23</div>
-              </div>
+
+              {topTen.map((entry) => (
+                <div
+                  key={entry._id}
+                  className="flex h-14 items-center justify-between w-full border-b border-solid border-black"
+                >
+                  <div className="table-cell w-1/4 font-poppins">
+                    {topTen.indexOf(entry) + 1}
+                  </div>
+                  <div className="table-cell w-1/4 font-poppins">
+                    {entry.user.username}
+                  </div>
+                  <div className="table-cell w-1/4 font-poppins">
+                    {`${entry.entry}  Kg`}
+                  </div>
+                  <div className="table-cell w-1/4 font-poppins">
+                    {getFormattedDate(entry.entryDate)}
+                  </div>
+                </div>
+              ))}
             </div>
             <div className="flex relative">
               <button

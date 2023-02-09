@@ -2,9 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  entries: [],
+  topTenEntries: [],
   addEntryModal: false,
   entryMessage: null,
+  toUpdate: false,
 };
 
 export const addLeaderBoardEntry = createAsyncThunk(
@@ -17,8 +18,29 @@ export const addLeaderBoardEntry = createAsyncThunk(
           Authorisation: `Bearer ${token}`,
         },
       };
-      const url = "http://localhost:5000/api/leaderBoards/addEntry";
+      const url = "http://localhost:5000/api/entries/addEntry";
       const res = await axios.post(url, entry, config);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+export const getTopTenEntries = createAsyncThunk(
+  "entries/getTopTenEntries",
+  async (leaderBoardId, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = "http://localhost:5000/api/entries/getTopTen";
+      const res = await axios.get(url, {
+        params: {
+          leaderBoardId: leaderBoardId,
+        },
+        headers: {
+          Authorisation: `Bearer ${token}`,
+        },
+      });
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.message });
@@ -33,14 +55,22 @@ export const EntriesSlice = createSlice({
     setAddEntryOpen: (state) => {
       state.addEntryModal = !state.addEntryModal;
     },
+    setToUpdate: (state, action) => {
+      state.toUpdate = action.payload;
+    },
   },
   extraReducers(builder) {
-    builder.addCase(addLeaderBoardEntry.fulfilled, (state, action) => {
-      state.entryMessage = action.payload.message;
-    });
+    builder
+      .addCase(addLeaderBoardEntry.fulfilled, (state, action) => {
+        state.entryMessage = action.payload.message;
+        state.toUpdate = action.payload.toUpdate;
+      })
+      .addCase(getTopTenEntries.fulfilled, (state, action) => {
+        state.topTenEntries = action.payload;
+      });
   },
 });
 
-export const { setAddEntryOpen } = EntriesSlice.actions;
+export const { setAddEntryOpen, setToUpdate } = EntriesSlice.actions;
 
 export default EntriesSlice.reducer;
