@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setCommunityOpen } from "../redux/reducers/CommunityModalSlice";
 import { addCommunity } from "../redux/reducers/CommunitiesSlice";
+import { XIcon } from "@heroicons/react/solid";
 
 function NewCommunityModal() {
   const [data, setData] = useState({
@@ -36,23 +37,25 @@ function NewCommunityModal() {
   } else {
     return (
       <div className="fixed top-0 left-0 right-0 bottom-0 bg-modal-bg flex items-center justify-center z-20">
-        <div className="flex flex-col items-center justify-center bg-white rounded">
+        <div className="flex flex-col items-center justify-center bg-white rounded w-1/2 h-3/4">
           <div className="grid grid-cols-2 text-xl pt-5">
-            <h1 className="justify-self-start p-2">Create Community</h1>
-            <button
-              className="justify-self-end bg-gray-500 p-2 rounded-md"
+            <h1 className="justify-self-start p-2 font-poppins font-bold">
+              Create Community
+            </h1>
+            <XIcon
+              className="h-10 w-10 justify-self-end cursor-pointer"
               onClick={() => dispatch(setCommunityOpen())}
-            >
-              X
-            </button>
+            />
           </div>
           <form
-            className="flex flex-col md:max-w-3/4 text-xl p-10"
+            className="flex flex-col w-3/4 text-xl p-10"
             onSubmit={handleSubmit}
           >
-            <label>Name</label>
+            <label className="font-poppins font-semibold text-sky-700">
+              Name
+            </label>
             <input
-              className="bg-gray-400 rounded placeholder-gray-300"
+              className="bg-sky-100  text-sm p-2 rounded placeholder-sky-700 placeholder:font-poppins placeholder:font-semibold font-poppins text-sky-700 focus:border-2 focus:border-solid focus:border-sky-700 focus:bg-sky-200"
               type="text"
               required
               name="communityName"
@@ -60,9 +63,11 @@ function NewCommunityModal() {
               value={data.communityName}
             />
 
-            <label>Description</label>
-            <input
-              className="bg-gray-400 rounded placeholder-gray-300"
+            <label className="font-poppins font-semibold text-sky-700">
+              Description
+            </label>
+            <textarea
+              className="bg-sky-100 w-full h-[200px] text-sm p-2 rounded placeholder-sky-700 placeholder:font-poppins placeholder:font-semibold font-poppins text-sky-700 focus:border-2 focus:border-solid focus:border-sky-700 focus:bg-sky-200 resize-none"
               type="text"
               required
               name="description"
@@ -72,7 +77,7 @@ function NewCommunityModal() {
 
             <div className="grid grid-cols-1 pt-5">
               <button
-                className="justify-self-start bg-gray-500 p-2 rounded-md"
+                className="justify-self-end bg-sky-200 hover:bg-sky-300 w-fit p-5 rounded text-sky-700 font-poppins font-semibold"
                 type="submit"
               >
                 Submit

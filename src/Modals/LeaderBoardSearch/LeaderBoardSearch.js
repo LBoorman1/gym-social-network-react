@@ -50,11 +50,11 @@ function LeaderBoardSearch() {
               {activeCommunityName}
             </h1>
             <XIcon
-              className="w-10 h-10"
+              className="w-10 h-10 cursor-pointer"
               onClick={() => dispatch(setLeaderBoardSearchOpen())}
             />
           </div>
-          <div className="w-full flex gap-5 flex-wrap">
+          <div className="grid grid-cols-3 gap-2">
             {leaderBoards.map((leaderBoard) => (
               <LeaderBoardCard
                 key={leaderBoard._id}

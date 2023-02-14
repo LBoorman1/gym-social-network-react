@@ -5,7 +5,7 @@ import { joinLeaderBoard } from "../../redux/reducers/LeaderBoardsSlice";
 function LeaderBoardCard({ id, title, memberCount, description }) {
   const dispatch = useDispatch();
   return (
-    <div className="bg-white shadow-xl flex flex-col p-10 rounded-lg w-fit">
+    <div className="bg-white shadow-xl flex flex-col p-10 rounded-lg w-[350px] mb-5">
       <h1 className="font-poppins font-extrabold text-center">{title}</h1>
       <br />
       <div className="w-full flex justify-center">

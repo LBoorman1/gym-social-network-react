@@ -24,7 +24,7 @@ function CommunitySearchModal() {
     return null;
   } else {
     return (
-      <div className="fixed top-0 left-0 right-0 bottom-0 bg-modal-bg flex flex-col items-center gap-2 z-20">
+      <div className="fixed top-0 left-0 right-0 bottom-0 bg-modal-bg flex flex-col items-center gap-2 z-20 overflow-auto">
         <SearchBar setSuggestions={setSuggestions} />
         <DisplayResults suggestions={suggestions} />
       </div>
