@@ -48,7 +48,11 @@ function SearchBar({ setSuggestions }) {
       />
       <XIcon
         className="h-8 w-8 pr-2 hover:cursor-pointer"
-        onClick={() => dispatch(setSearchOpen())}
+        onClick={() => {
+          dispatch(setSearchOpen());
+          setSearchTerm("");
+          setSuggestions([]);
+        }}
       />
     </div>
   );
