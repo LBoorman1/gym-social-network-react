@@ -20,8 +20,10 @@ import leaderBoardEntry from "./models/leaderBoardEntry.js";
 dotenv.config();
 const app = express();
 app.use(cors());
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(
+  bodyParser.json({ limit: "500mb", extended: true, type: "application/json" })
+);
+app.use(bodyParser.urlencoded({ limit: "500mb", extended: true }));
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
