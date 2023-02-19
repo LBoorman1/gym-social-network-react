@@ -7,6 +7,7 @@ export const createPost = async (req, res) => {
   const id = req.id;
   const communityId = req.body.communityId;
   const image = req.body.image;
+  const fileSize = req.headers["content-length"];
 
   try {
     const userCheck = await CommunityUser.findOne({
@@ -15,12 +16,20 @@ export const createPost = async (req, res) => {
     });
     if (userCheck) {
       //cloudinary image upload stuff
-
-      const result = await cloudinary.uploader.upload(image, {
-        folder: "posts",
-      });
-
-      // console.log(result);
+      let result;
+      if (fileSize >= 10485760) {
+        console.log("large file");
+        result = await cloudinary.uploader.upload_large(image, {
+          folder: "posts",
+          resource_type: "video",
+          chunk_size: 20000000,
+        });
+        console.log(result);
+      } else {
+        result = await cloudinary.uploader.upload(image, {
+          folder: "posts",
+        });
+      }
 
       const newPost = new PostMessage({
         postMessage: post,

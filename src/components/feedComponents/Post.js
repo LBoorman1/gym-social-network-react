@@ -2,6 +2,9 @@ import React from "react";
 import { ThumbUpIcon } from "@heroicons/react/solid";
 
 function PostNew({ user, likes, picture, caption, date }) {
+  const extension = picture.split(".").pop();
+  const isPicture = (extension == "jpg") | (extension == "png");
+
   return (
     <div className="postContainer bg-[#D9D9D9] h-full flex flex-col rounded-md mb-5 w-full drop-shadow-md">
       <div className="userInfo bg-white p-5 rounded-md my-5 mx-5 h-[80px] flex items-center gap-10">
@@ -14,9 +17,17 @@ function PostNew({ user, likes, picture, caption, date }) {
           <ThumbUpIcon className="h-5 w-5 ml-1" />
         </div>
       </div>
-      <div className="photoAndCaption bg-white p-5 rounded-md mb-5 mx-5 h-[32rem] flex flex-col items-center">
+      <div className="photoAndCaption bg-white p-5 rounded-md mb-5 mx-5 h-fit flex flex-col items-center">
         <div className="h-full flex flex-col justify-center items-center">
-          <img className="rounded-md w-[75%]" src={picture} />
+          {/* Conditionally render a video or img tag based on the isPicture variable */}
+          {isPicture ? (
+            <img className="rounded-md w-[75%] " src={picture} />
+          ) : (
+            <video className="rounded-md w-[75%]" controls>
+              <source src={picture} type="video/mp4" />
+            </video>
+          )}
+
           <div className="caption bg-[#D9D9D9] m-5 rounded-md w-[75%]">
             <p className="font-semibold p-5 text-lg">{caption}</p>
           </div>
