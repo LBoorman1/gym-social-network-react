@@ -114,4 +114,4 @@ const findAllComments = async () => {
 // findLeaderBoardUsers();
 // findAllEntries();
 // deleteAllEntries();
-findAllComments();
+// findAllComments();

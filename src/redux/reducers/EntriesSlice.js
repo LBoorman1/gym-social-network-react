@@ -6,6 +6,7 @@ const initialState = {
   addEntryModal: false,
   entryMessage: null,
   toUpdate: false,
+  userTopEntry: [],
 };
 
 export const addLeaderBoardEntry = createAsyncThunk(
@@ -48,6 +49,27 @@ export const getTopTenEntries = createAsyncThunk(
   }
 );
 
+export const getUserTopEntry = createAsyncThunk(
+  "entries/getUserTopEntry",
+  async (leaderBoardId, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = "http://localhost:5000/api/entries/getUserTop";
+      const res = await axios.get(url, {
+        params: {
+          leaderBoardId: leaderBoardId,
+        },
+        headers: {
+          Authorisation: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
 export const EntriesSlice = createSlice({
   name: "Entries",
   initialState,
@@ -67,6 +89,9 @@ export const EntriesSlice = createSlice({
       })
       .addCase(getTopTenEntries.fulfilled, (state, action) => {
         state.topTenEntries = action.payload;
+      })
+      .addCase(getUserTopEntry.fulfilled, (state, action) => {
+        state.userTopEntry = action.payload;
       });
   },
 });

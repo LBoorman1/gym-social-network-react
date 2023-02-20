@@ -21,7 +21,7 @@ function LeaderBoardWidget() {
 
   return (
     <div className="hidden md:flex flex-col items-center bg-[#D9D9D9] mt-2 mx-2 p-2 h-fit rounded-md z-0 basis-1/4 drop-shadow-xl">
-      <h1 className="mb-2 font-poppins">Your LeaderBoards</h1>
+      <h1 className="mb-2 font-poppins font-bold text-lg">Your LeaderBoards</h1>
       <div className="w-full">
         {leaderBoards.map((leaderBoard) => (
           <LeaderBoard

@@ -28,9 +28,9 @@ function CommentRender({ id }) {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full cursor-pointer">
       <div
-        className="flex justify-start w-full "
+        className="flex justify-start w-full items-center "
         onClick={() => {
           setCommentsShow(!commentsShow);
           if (commentsShow == false) {

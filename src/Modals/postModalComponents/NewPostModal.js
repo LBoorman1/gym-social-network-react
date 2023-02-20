@@ -65,6 +65,8 @@ function NewPostModal() {
     // this is the function to send off the post request with the form attributes
     event.preventDefault();
     dispatch(addPost(data));
+    setData({ ...data, postMessage: "", image: "", communityId: "" });
+    dispatch(setPostOpen());
   };
 
   if (!show) {

@@ -21,8 +21,10 @@ function Community({ _id, name, active }) {
         }
       }}
       className={
-        "flex rounded-md mb-3 p-2 " +
-        (active ? "bg-[#79ADDC]" : "bg-white hover:bg-[#f5f5f5]")
+        "flex rounded-md mb-3 p-2 font-poppins " +
+        (active
+          ? "bg-sky-100 text-sky-700 font-extrabold"
+          : "bg-white hover:bg-[#f5f5f5]")
       }
     >
       <UserGroupIcon className="h-5 w-5 mr-1" />

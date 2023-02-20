@@ -49,3 +49,31 @@ export const getTopTenEntries = async (req, res) => {
     res.status(401).json({ message: "an error has occured" });
   }
 };
+
+export const getUserTopEntry = async (req, res) => {
+  const leaderBoardId = req.query.leaderBoardId;
+  const user = req.id;
+
+  try {
+    const userTopEntry = await leaderBoardEntry
+      .findOne({ leaderBoard: leaderBoardId, user: user })
+      .sort({ entry: -1 })
+      .limit(1)
+      .populate("user");
+    const numberAbove = await leaderBoardEntry.count({
+      leaderBoard: leaderBoardId,
+      entry: { $gt: userTopEntry.entry },
+    });
+
+    const toReturn = {
+      position: numberAbove + 1,
+      user: userTopEntry.user.username,
+      entry: userTopEntry.entry,
+      entryDate: userTopEntry.entryDate,
+    };
+
+    res.status(200).json(toReturn);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+};

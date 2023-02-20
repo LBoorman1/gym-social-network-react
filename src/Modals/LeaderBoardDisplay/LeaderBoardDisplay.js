@@ -6,6 +6,7 @@ import { XIcon } from "@heroicons/react/solid";
 import { setActiveLeaderBoard } from "../../redux/reducers/LeaderBoardsSlice";
 import {
   getTopTenEntries,
+  getUserTopEntry,
   setToUpdate,
 } from "../../redux/reducers/EntriesSlice";
 import AddEntry from "./AddEntry";
@@ -39,11 +40,13 @@ function LeaderBoardDisplay() {
   useEffect(() => {
     if (activeLeaderBoard != null || toUpdate == true) {
       dispatch(getTopTenEntries(activeLeaderBoard));
+      dispatch(getUserTopEntry(activeLeaderBoard));
       dispatch(setToUpdate(false));
     }
   }, [dispatch, activeLeaderBoard, toUpdate]);
 
   const topTen = useSelector((state) => state.entries.topTenEntries);
+  const userTop = useSelector((state) => state.entries.userTopEntry);
 
   const getFormattedDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -71,7 +74,7 @@ function LeaderBoardDisplay() {
         </div>
         <div className="bg-white w-full mt-2 h-full rounded-t-lg flex">
           {/* Left Side is The actual leaderBoard */}
-          <div className="h-full m-2 w-[50%]">
+          <div className="h-full m-2 w-[100%] md:w-[50%]">
             <div className="table w-full pl-2">
               <div className="table-header-group w-full ">
                 <div className="flex h-14 items-center justify-between w-full border-b border-solid border-black">
@@ -118,6 +121,25 @@ function LeaderBoardDisplay() {
                 New Entry
               </button>
               <AddEntry />
+            </div>
+          </div>
+          {/* User Top Entry */}
+          <div className="grid grid-cols-10 gap-2 w-[50%]">
+            <div className="col-span-1">
+              <h1>Position</h1>
+              <h2>{userTop.position}</h2>
+            </div>
+            <div className="col-span-3">
+              <h1>Name</h1>
+              <h2>{userTop.user}</h2>
+            </div>
+            <div className="col-span-3">
+              <h1>Entry</h1>
+              <h2>{userTop.entry} Kg</h2>
+            </div>
+            <div className="col-span-3">
+              <h1>Date</h1>
+              <h2>{getFormattedDate(userTop.entryDate)}</h2>
             </div>
           </div>
         </div>
