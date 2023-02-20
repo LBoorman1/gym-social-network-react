@@ -22,7 +22,9 @@ function PostWidget() {
       <div className="bg-white rounded-t-md p-2">
         {/* This is the name section will need to add a redux slice with user information that is filled on login */}
         <img src=""></img>
-        <h2>Luke Boorman</h2>
+        <h2 className="font-poppins font-semibold text-sky-700">
+          Luke Boorman
+        </h2>
         <div className="bg-white w-3/4 border border-solid self-center mt-2 translate-x-10"></div>
       </div>
 
@@ -30,22 +32,24 @@ function PostWidget() {
         {/* This is the middle section of the post widget will contain the buttons for managing posts adding post and 
         leaving community */}
         <button
-          className="bg-[#79ADDC] p-2 rounded-md m-2 hover:bg-[#2274c6]"
+          className="bg-sky-100 hover:bg-sky-200 rounded px-3 py-2 font-poppins font-semibold text-sky-700 mx-1 my-1"
           onClick={() => dispatch(setPostOpen())}
         >
           Add Post
         </button>
-        <button className="bg-[#79ADDC] p-2 rounded-md m-2 hover:bg-[#2274c6]">
+        <button className="bg-sky-100 hover:bg-sky-200 rounded px-3 py-2 font-poppins font-semibold text-sky-700 mx-1 my-1">
           Manage Posts
         </button>
-        <button className="bg-[#79ADDC] p-2 rounded-md m-2 hover:bg-[#2274c6]">
+        <button className="bg-sky-100 hover:bg-sky-200 rounded px-3 py-2 font-poppins font-semibold text-sky-700 mx-1 my-1">
           Leave Community
         </button>
         <div className="bg-white w-3/4 border border-solid self-center mt-4 translate-x-10"></div>
       </div>
       <div className="bg-white p-2 rounded-b-md">
         {/* This is the bottom section of the widget, contains the community name and the date that the user joined on */}
-        <h2>{communityName ? communityName : "No Community Selected"}</h2>
+        <h2 className="font-poppins font-semibold text-sky-700">
+          {communityName ? communityName : "No Community Selected"}
+        </h2>
       </div>
     </div>
   );

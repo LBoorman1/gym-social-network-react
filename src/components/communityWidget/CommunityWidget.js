@@ -32,7 +32,7 @@ function CommunityWidget() {
 
   return (
     <div className="hidden md:flex flex-col items-center bg-[#D9D9D9] mx-2 p-2 md:h-fit rounded-md z-0 basis-1/4 drop-shadow-xl">
-      <h1 className="mb-2 font-poppins">Your Communities</h1>
+      <h1 className="mb-2 font-poppins font-bold text-lg">Your Communities</h1>
       <div className="w-full">
         {communities.map((community) => (
           <Community
