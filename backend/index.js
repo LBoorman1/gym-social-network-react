@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import communityRoutes from "./routes/communities.js";
 import leaderBoardRoutes from "./routes/leaderBoards.js";
+import commentRoutes from "./routes/comments.js";
 import entryRoutes from "./routes/entries.js";
 import dotenv from "dotenv";
 import { User } from "./models/user.js";
@@ -16,6 +17,7 @@ import CommunityUser from "./models/communityUser.js";
 import leaderBoard from "./models/leaderBoard.js";
 import LeaderBoardUser from "./models/leaderBoardUser.js";
 import leaderBoardEntry from "./models/leaderBoardEntry.js";
+import comment from "./models/comment.js";
 
 dotenv.config();
 const app = express();
@@ -30,6 +32,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/communities", communityRoutes);
 app.use("/api/leaderBoards", leaderBoardRoutes);
 app.use("/api/entries", entryRoutes);
+app.use("/api/comments", commentRoutes);
 
 const CONNECTION_URL =
   "REDACTED";
@@ -95,6 +98,11 @@ const deleteAllEntries = async () => {
   await leaderBoardEntry.deleteMany();
 };
 
+const findAllComments = async () => {
+  const comments = await comment.find({});
+  console.log(comments);
+};
+
 // findLeaderBoards();
 // testPopulate();
 // findCommunityUsers();
@@ -106,3 +114,4 @@ const deleteAllEntries = async () => {
 // findLeaderBoardUsers();
 // findAllEntries();
 // deleteAllEntries();
+findAllComments();

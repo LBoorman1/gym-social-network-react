@@ -9,6 +9,7 @@ import HamburgerMenuSlice from "../reducers/HamburgerMenuSlice";
 import LeaderBoardsReducer from "../reducers/LeaderBoardsSlice";
 import LeaderBoardSearchReducer from "../reducers/LeaderBoardsSearchModalSlice";
 import EntriesSlice from "../reducers/EntriesSlice";
+import CommentsSlice from "../reducers/CommentsSlice";
 
 export default configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export default configureStore({
     leaderBoards: LeaderBoardsReducer,
     leaderBoardsSearch: LeaderBoardSearchReducer,
     entries: EntriesSlice,
+    comments: CommentsSlice,
   },
 });

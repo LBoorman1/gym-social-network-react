@@ -7,6 +7,7 @@ function PostRender({ posts }) {
       {posts.map((post) => (
         <Post
           key={post._id}
+          id={post._id}
           user={post.creator.username}
           likes={post.likeCount}
           caption={post.postMessage}
