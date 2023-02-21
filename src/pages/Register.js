@@ -6,7 +6,22 @@ function Register() {
     username: "",
     password: "",
     emailAddress: "",
+    image: [],
   });
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
+    console.log(file);
+  };
+
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setData({ ...data, image: reader.result });
+    };
+  };
 
   const navigate = useNavigate();
 
@@ -102,6 +117,15 @@ function Register() {
                 onChange={handleChange}
                 value={data.emailAddress}
                 required
+              />
+            </div>
+            <div className="flex flex-col p-2">
+              <label className="text-left font-poppins">Profile photo</label>
+              <input
+                onChange={handleImage}
+                type="file"
+                name="image"
+                className="flex w-full text-sm text-slate-500 file:mr-4 file:py-5 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 file:font-poppins font-poppins"
               />
             </div>
           </div>

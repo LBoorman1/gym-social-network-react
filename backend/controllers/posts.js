@@ -14,11 +14,11 @@ export const createPost = async (req, res) => {
       community: communityId,
       user: id,
     });
+
     if (userCheck) {
       //cloudinary image upload stuff
       let result;
       if (fileSize >= 10485760) {
-        console.log("large file");
         result = await cloudinary.uploader.upload_large(image, {
           folder: "posts",
           resource_type: "video",
