@@ -103,6 +103,17 @@ const findAllComments = async () => {
   console.log(comments);
 };
 
+const deleteAllDocuments = async () => {
+  await User.deleteMany();
+  await PostMessage.deleteMany();
+  await leaderBoardEntry.deleteMany();
+  await LeaderBoardUser.deleteMany();
+  await leaderBoard.deleteMany();
+  await Community.deleteMany();
+  await CommunityUser.deleteMany();
+  await comment.deleteMany();
+};
+
 // findLeaderBoards();
 // testPopulate();
 // findCommunityUsers();
@@ -115,3 +126,4 @@ const findAllComments = async () => {
 // findAllEntries();
 // deleteAllEntries();
 // findAllComments();
+// deleteAllDocuments();

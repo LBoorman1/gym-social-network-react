@@ -2,6 +2,7 @@ import express from "express";
 import { User } from "../models/user.js";
 import joi from "joi";
 import bcrypt from "bcrypt";
+import { authenticateToken } from "../middlewares/authenticateToken.js";
 
 const router = express.Router();
 
@@ -29,6 +30,21 @@ router.post("/", async (req, res) => {
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error" });
     console.log(error);
+  }
+});
+
+router.get("/getUserInfo", authenticateToken, async (req, res) => {
+  const user = req.id;
+  try {
+    const result = await User.findById(user);
+    const toReturn = {
+      userName: result.username,
+      emailAddress: result.emailAddress,
+      profilePhoto: result.image.url,
+    };
+    res.status(200).json(toReturn);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
   }
 });
 

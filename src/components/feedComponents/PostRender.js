@@ -9,6 +9,7 @@ function PostRender({ posts }) {
           key={post._id}
           id={post._id}
           user={post.creator.username}
+          profilePhoto={post.creator.image.url}
           likes={post.likeCount}
           caption={post.postMessage}
           picture={post.image.url}
