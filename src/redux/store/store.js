@@ -10,6 +10,7 @@ import LeaderBoardsReducer from "../reducers/LeaderBoardsSlice";
 import LeaderBoardSearchReducer from "../reducers/LeaderBoardsSearchModalSlice";
 import EntriesSlice from "../reducers/EntriesSlice";
 import CommentsSlice from "../reducers/CommentsSlice";
+import UserSlice from "../reducers/UserSlice";
 
 export default configureStore({
   reducer: {
@@ -24,5 +25,6 @@ export default configureStore({
     leaderBoardsSearch: LeaderBoardSearchReducer,
     entries: EntriesSlice,
     comments: CommentsSlice,
+    users: UserSlice,
   },
 });

@@ -1,6 +1,8 @@
 import { React, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getUserInfo } from "../redux/reducers/UserSlice";
 
 function Login() {
   const [data, setData] = useState({
@@ -13,16 +15,15 @@ function Login() {
   };
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const url = "http://localhost:5000/api/auth";
       const { data: res } = await axios.post(url, data);
-
-      // dispatch user login information
-
       localStorage.setItem("token", res.data);
+      dispatch(getUserInfo());
       navigate("/");
     } catch (error) {
       console.log(error.message);

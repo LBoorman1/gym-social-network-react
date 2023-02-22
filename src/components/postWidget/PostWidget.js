@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostOpen } from "../../redux/reducers/PostModalSlice";
+import { getUserInfo } from "../../redux/reducers/UserSlice";
+import { useEffect } from "react";
 
 // Need to take the active community name to display in the widget so it is clear which
 // community you are going to post to or leave.
@@ -16,16 +18,24 @@ function PostWidget() {
   );
 
   const dispatch = useDispatch();
+  const userName = useSelector((state) => state.users.userName);
+  const profilePhoto = useSelector((state) => state.users.profilePhoto);
+
+  useEffect(() => {
+    if (userName == "") {
+      dispatch(getUserInfo());
+    }
+  }, [dispatch, userName]);
 
   return (
     <div className="bg-[#D9D9D9] p-2 hidden md:flex flex-col mx-2 h-fit rounded-md z-0 drop-shadow-xl">
-      <div className="bg-white rounded-t-md p-2">
+      <div className="bg-white rounded-t-md p-2 flex items-center gap-3">
         {/* This is the name section will need to add a redux slice with user information that is filled on login */}
-        <img src=""></img>
-        <h2 className="font-poppins font-semibold text-sky-700">
-          Luke Boorman
-        </h2>
-        <div className="bg-white w-3/4 border border-solid self-center mt-2 translate-x-10"></div>
+        <img
+          src={profilePhoto}
+          className="h-12 w-12 rounded-full border border-solid border-black"
+        />
+        <h2 className="font-poppins font-semibold text-sky-700">{userName}</h2>
       </div>
 
       <div className="bg-white p-2 flex flex-wrap">
@@ -43,7 +53,6 @@ function PostWidget() {
         <button className="bg-sky-100 hover:bg-sky-200 rounded px-3 py-2 font-poppins font-semibold text-sky-700 mx-1 my-1">
           Leave Community
         </button>
-        <div className="bg-white w-3/4 border border-solid self-center mt-4 translate-x-10"></div>
       </div>
       <div className="bg-white p-2 rounded-b-md">
         {/* This is the bottom section of the widget, contains the community name and the date that the user joined on */}

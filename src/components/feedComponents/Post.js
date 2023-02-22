@@ -4,7 +4,7 @@ import CommentRender from "./CommentRender";
 import { useDispatch } from "react-redux";
 import { addComment } from "../../redux/reducers/CommentsSlice";
 
-function PostNew({ user, likes, picture, caption, date, id }) {
+function PostNew({ user, likes, picture, caption, date, id, profilePhoto }) {
   const extension = picture.split(".").pop();
   const isPicture = (extension == "jpg") | (extension == "png");
   const dispatch = useDispatch();
@@ -28,8 +28,12 @@ function PostNew({ user, likes, picture, caption, date, id }) {
   return (
     <div className="postContainer bg-[#D9D9D9] h-full flex flex-col rounded-md mb-5 w-full drop-shadow-md">
       <div className="userInfo bg-white p-5 rounded-md my-5 mx-5 h-[80px] flex items-center gap-5">
-        <div className="flex items-center">
-          <span className="rounded-full bg-[#79ADDC] h-[40px] w-[40px] inline-block mr-2" />
+        <div className="flex items-center gap-2">
+          <img
+            src={profilePhoto}
+            alt=""
+            className="w-12 h-12 rounded-full border border-solid border-black"
+          />
           <h2 className="font-bold font-poppins">{user}</h2>
         </div>
         <div className="flex rounded-lg bg-sky-50 hover:bg-sky-100 font-poppins text-sky-700 p-3">
