@@ -11,6 +11,8 @@ import {
 } from "../../redux/reducers/EntriesSlice";
 import AddEntry from "./AddEntry";
 import { setAddEntryOpen } from "../../redux/reducers/EntriesSlice";
+import TopTen from "./TopTen";
+import UserTop from "./UserTop";
 
 function LeaderBoardDisplay() {
   const show = useSelector(
@@ -45,14 +47,6 @@ function LeaderBoardDisplay() {
     }
   }, [dispatch, activeLeaderBoard, toUpdate]);
 
-  const topTen = useSelector((state) => state.entries.topTenEntries);
-  const userTop = useSelector((state) => state.entries.userTopEntry);
-
-  const getFormattedDate = (dateStr) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString();
-  };
-
   if (!show) {
     return null;
   } else {
@@ -74,48 +68,11 @@ function LeaderBoardDisplay() {
         </div>
         <div className="bg-white w-full mt-2 h-full rounded-t-lg flex">
           {/* Left Side is The actual leaderBoard */}
-          <div className="h-full m-2 w-[100%] md:w-[50%]">
-            <div className="table w-full pl-2">
-              <div className="table-header-group w-full ">
-                <div className="flex h-14 items-center justify-between w-full border-b border-solid border-black">
-                  <div className="table-cell w-1/4 font-poppins font-bold text-left">
-                    Postion
-                  </div>
-                  <div className="table-cell w-1/4 font-poppins font-bold text-left">
-                    Name
-                  </div>
-                  <div className="table-cell w-1/4 font-poppins font-bold text-left">
-                    Entry
-                  </div>
-                  <div className="table-cell w-1/4 font-poppins font-bold text-left">
-                    Date
-                  </div>
-                </div>
-              </div>
-
-              {topTen.map((entry) => (
-                <div
-                  key={entry._id}
-                  className="flex h-14 items-center justify-between w-full border-b border-solid border-black"
-                >
-                  <div className="table-cell w-1/4 font-poppins">
-                    {topTen.indexOf(entry) + 1}
-                  </div>
-                  <div className="table-cell w-1/4 font-poppins">
-                    {entry.user.username}
-                  </div>
-                  <div className="table-cell w-1/4 font-poppins">
-                    {`${entry.entry}  Kg`}
-                  </div>
-                  <div className="table-cell w-1/4 font-poppins">
-                    {getFormattedDate(entry.entryDate)}
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="h-full m-2 w-[100%] md:w-[50%] flex flex-col">
+            <TopTen />
             <div className="flex relative">
               <button
-                className="transition duration-300 bg-[#2a90e9] rounded-md p-5 text-white hover:bg-white hover:border-2 hover:border-solid hover:border-[#2a90e9] hover:text-[#2a90e9]"
+                className="transition duration-300 bg-[#2a90e9] rounded-md p-5 text-white hover:bg-white hover:border-2 hover:border-solid hover:border-[#2a90e9] hover:text-[#2a90e9] self-end mt-2 "
                 onClick={() => dispatch(setAddEntryOpen())}
               >
                 New Entry
@@ -123,25 +80,7 @@ function LeaderBoardDisplay() {
               <AddEntry />
             </div>
           </div>
-          {/* User Top Entry */}
-          <div className="grid grid-cols-10 gap-2 w-[50%]">
-            <div className="col-span-1">
-              <h1>Position</h1>
-              <h2>{userTop.position}</h2>
-            </div>
-            <div className="col-span-3">
-              <h1>Name</h1>
-              <h2>{userTop.user}</h2>
-            </div>
-            <div className="col-span-3">
-              <h1>Entry</h1>
-              <h2>{userTop.entry} Kg</h2>
-            </div>
-            <div className="col-span-3">
-              <h1>Date</h1>
-              <h2>{getFormattedDate(userTop.entryDate)}</h2>
-            </div>
-          </div>
+          <UserTop />
         </div>
       </div>
     );

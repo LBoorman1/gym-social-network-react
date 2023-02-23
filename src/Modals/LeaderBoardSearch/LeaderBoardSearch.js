@@ -60,7 +60,7 @@ function LeaderBoardSearch() {
                 key={leaderBoard._id}
                 id={leaderBoard._id}
                 title={leaderBoard.title}
-                memberCount={10}
+                memberLimit={leaderBoard.memberLimit}
                 description={leaderBoard.description}
               />
             ))}

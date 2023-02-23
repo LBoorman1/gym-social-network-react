@@ -23,6 +23,10 @@ const leaderBoardSchema = new mongoose.Schema({
     type: Number,
     default: 100,
   },
+  memberCount: {
+    type: Number,
+    default: 1,
+  },
 });
 
 const leaderBoard = mongoose.model("leaderBoard", leaderBoardSchema);

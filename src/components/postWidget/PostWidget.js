@@ -4,14 +4,6 @@ import { setPostOpen } from "../../redux/reducers/PostModalSlice";
 import { getUserInfo } from "../../redux/reducers/UserSlice";
 import { useEffect } from "react";
 
-// Need to take the active community name to display in the widget so it is clear which
-// community you are going to post to or leave.
-
-// Background will be the same as the other widgets
-
-// Manage posts button will take you to a modal with all of the posts that you have put
-// in the selected community.
-
 function PostWidget() {
   const communityName = useSelector(
     (state) => state.communities.activeCommunityName

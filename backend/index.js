@@ -85,6 +85,10 @@ const findLeaderBoardUsers = async () => {
   console.log(leaderBoardUsers);
 };
 
+const deleteLeaderBoards = async () => {
+  await leaderBoard.deleteMany();
+};
+
 const deleteLeaderBoardUsers = async () => {
   await LeaderBoardUser.deleteMany();
 };
@@ -127,3 +131,4 @@ const deleteAllDocuments = async () => {
 // deleteAllEntries();
 // findAllComments();
 // deleteAllDocuments();
+// deleteLeaderBoards();

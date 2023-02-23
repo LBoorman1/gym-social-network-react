@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { addLeaderBoardEntry } from "../../redux/reducers/EntriesSlice";
 import { useDispatch } from "react-redux";
+import { XIcon } from "@heroicons/react/solid";
+import { setAddEntryOpen } from "../../redux/reducers/EntriesSlice";
 
 // This is the component with a form for entering a new entry to the leaderboard
 function AddEntry() {
@@ -31,36 +33,44 @@ function AddEntry() {
     return null;
   } else {
     return (
-      <div className="absolute left-[150px] bottom-[200px] rounded-lg bg-white border border-solid border-black p-10">
-        <div className="flex flex-col gap-5">
-          <div className="flex">
-            <input
-              className="bg-sky-50 rounded-l-full focus:border focus:border-solid focus:border-sky-700 p-2 placeholder:text-sky-700 text-sky-700 font-semibold placeholder:font-semibold"
-              type="text"
-              name="entry"
-              id="entry"
-              value={entry.entry}
-              onChange={handleChange}
-              placeholder="Enter Achieved Lift"
-            />
-            <span className="bg-sky-50 rounded-r-full p-2 text-sky-700 font-semibold">
-              Kg
-            </span>
-          </div>
+      <div className="fixed top-0 left-0 right-0 bottom-0 bg-modal-bg flex items-center justify-center z-20">
+        <div className="rounded-lg bg-white border border-solid border-black p-10">
+          <div className="flex flex-col gap-5">
+            <div className="flex gap-10 items-center">
+              <div className="flex">
+                <input
+                  className="bg-sky-50 rounded-l-full focus:border focus:border-solid focus:border-sky-700 p-2 placeholder:text-sky-700 text-sky-700 font-semibold placeholder:font-semibold"
+                  type="text"
+                  name="entry"
+                  id="entry"
+                  value={entry.entry}
+                  onChange={handleChange}
+                  placeholder="Enter Achieved Lift"
+                />
+                <span className="bg-sky-50 rounded-r-full p-2 text-sky-700 font-semibold">
+                  Kg
+                </span>
+              </div>
+              <XIcon
+                className="h-7 w-7 cursor-pointer"
+                onClick={() => dispatch(setAddEntryOpen())}
+              />
+            </div>
 
-          <div className="flex flex-col">
-            <span className="text-sky-700 p-2">Upload Proof: </span>
-            <input
-              type="file"
-              className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100"
-            />
+            <div className="flex flex-col">
+              <span className="text-sky-700 p-2">Upload Proof: </span>
+              <input
+                type="file"
+                className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100"
+              />
+            </div>
+            <button
+              className="py-2 px-4 rounded-full bg-sky-50 hover:bg-sky-100 text-sky-700 font-semibold"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
           </div>
-          <button
-            className="py-2 px-4 rounded-full bg-sky-50 hover:bg-sky-100 text-sky-700 font-semibold"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
         </div>
       </div>
     );
