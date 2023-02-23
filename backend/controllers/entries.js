@@ -60,19 +60,21 @@ export const getUserTopEntry = async (req, res) => {
       .sort({ entry: -1 })
       .limit(1)
       .populate("user");
-    const numberAbove = await leaderBoardEntry.count({
-      leaderBoard: leaderBoardId,
-      entry: { $gt: userTopEntry.entry },
-    });
-
-    const toReturn = {
-      position: numberAbove + 1,
-      user: userTopEntry.user.username,
-      entry: userTopEntry.entry,
-      entryDate: userTopEntry.entryDate,
-    };
-
-    res.status(200).json(toReturn);
+    if (userTopEntry) {
+      const numberAbove = await leaderBoardEntry.count({
+        leaderBoard: leaderBoardId,
+        entry: { $gt: userTopEntry.entry },
+      });
+      const toReturn = {
+        position: numberAbove + 1,
+        user: userTopEntry.user.username,
+        entry: userTopEntry.entry,
+        entryDate: userTopEntry.entryDate,
+      };
+      res.status(200).json(toReturn);
+    } else {
+      res.status(409).json({ message: "Need to create an entry first" });
+    }
   } catch (error) {
     res.status(401).json({ message: error.message });
   }

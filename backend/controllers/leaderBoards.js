@@ -59,13 +59,16 @@ export const retrieveByUser = async (req, res) => {
   ).populate("leaderBoard");
 
   const leaderBoards = [];
-  for await (const doc of leaderBoardUsers) {
-    const newLeaderBoard = await leaderBoard.findOne({
-      _id: doc.leaderBoard._id,
-    });
-    leaderBoards.push(newLeaderBoard);
+  if (leaderBoardUsers.length != 0) {
+    for await (const doc of leaderBoardUsers) {
+      const newLeaderBoard = await leaderBoard.findOne({
+        _id: doc.leaderBoard._id,
+      });
+      leaderBoards.push(newLeaderBoard);
+    }
+    return res.json(leaderBoards);
   }
-  return res.json(leaderBoards);
+  return res.json([]);
 };
 
 export const joinLeaderBoard = async (req, res) => {
@@ -82,6 +85,17 @@ export const joinLeaderBoard = async (req, res) => {
       .status(409)
       .send({ error: "User is already a member of this leader board!" });
   }
+  const leaderBoardQuery = await leaderBoard.findById(leaderBoardId);
+  const checkMemberLimit = await LeaderBoardUser.count({
+    leaderBoard: leaderBoardId,
+  });
+
+  if (leaderBoardQuery.memberLimit == checkMemberLimit) {
+    return res
+      .status(409)
+      .send({ error: "The member limit of this leaderBoard has been reached" });
+  }
+
   const newLeaderBoardUser = new LeaderBoardUser({
     leaderBoard: leaderBoardId,
     user: user,
@@ -89,6 +103,9 @@ export const joinLeaderBoard = async (req, res) => {
 
   try {
     await newLeaderBoardUser.save();
+    await leaderBoard.findByIdAndUpdate(leaderBoardId, {
+      memberCount: memberCount++,
+    });
     const leaderBoardToAdd = await leaderBoard.findById(leaderBoardId);
     res.status(201).json({
       message: "Successfully joined the leader board!",

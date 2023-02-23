@@ -67,7 +67,7 @@ function NewLeaderBoardModal() {
               onChange={handleChange}
               value={data.title}
               placeholder="Title of your new leader board"
-              className="bg-gray-400 rounded placeholder-gray-300 placeholder:italic placeholder:text-white p-4 w-[50%]"
+              className="bg-sky-50 font-poppins rounded focus:border focus:border-solid focus:border-sky-700 w-[50%] p-5 text-sky-700 placeholder:text-sky-700 placeholder:opacity-30"
             />
 
             <textarea
@@ -76,31 +76,38 @@ function NewLeaderBoardModal() {
               onChange={handleChange}
               value={data.description}
               placeholder="Description of your new leader board"
-              className="bg-gray-400 rounded placeholder-gray-300 placeholder:italic placeholder:text-white p-4 w-[50%] h-40"
+              className="bg-sky-50 font-poppins rounded focus:border focus:border-solid focus:border-sky-700 w-[50%] p-5 text-sky-700 h-40 resize-none placeholder:text-sky-700 placeholder:opacity-30"
             />
 
-            <div className="flex">
-              <input type="checkbox" name="timed" id="timed" />
+            <div className="flex gap-2 items-center">
+              <label className="text-sky-700 font-poppins font-semibold">
+                End Date
+              </label>
               <input
                 type="date"
                 name="endDate"
-                className="rounded ml-2 bg-gray-400 p-2"
+                className="rounded p-5 bg-sky-50 text-sky-700 focus:border focus:border-sky-700 focus:border-solid w-[100%] placeholder:opacity-30"
                 onChange={handleChange}
                 value={data.endDate}
               />
             </div>
 
-            <input
-              type="number"
-              name="memberLimit"
-              onChange={handleChange}
-              value={data.memberLimit}
-              placeholder="Member Limit"
-              className="bg-gray-400 rounded placeholder-gray-300 placeholder:italic placeholder:text-white"
-            />
+            <div className="flex gap-2 items-center">
+              <label className="text-sky-700 font-poppins font-semibold">
+                Member Limit
+              </label>
+              <input
+                type="number"
+                name="memberLimit"
+                onChange={handleChange}
+                value={data.memberLimit}
+                placeholder="Member Limit"
+                className="bg-sky-50 p-5 text-sky-700 font-poppins focus:border focus:border-solid w-[100%] focus:border-sky-700 rounded"
+              />
+            </div>
 
             <button
-              className="p-4 bg-gray-400 rounded hover:bg-gray-500"
+              className="p-5 rounded bg-sky-50 hover:bg-sky-100 font-poppins font-semibold text-sky-700"
               onClick={handleSubmit}
             >
               Create
