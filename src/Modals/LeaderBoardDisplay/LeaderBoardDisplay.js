@@ -8,11 +8,14 @@ import {
   getTopTenEntries,
   getUserTopEntry,
   setToUpdate,
+  getUserProgress,
 } from "../../redux/reducers/EntriesSlice";
+
 import AddEntry from "./AddEntry";
 import { setAddEntryOpen } from "../../redux/reducers/EntriesSlice";
 import TopTen from "./TopTen";
 import UserTop from "./UserTop";
+import Progress from "./Progress";
 
 function LeaderBoardDisplay() {
   const show = useSelector(
@@ -43,6 +46,7 @@ function LeaderBoardDisplay() {
     if (activeLeaderBoard != null || toUpdate == true) {
       dispatch(getTopTenEntries(activeLeaderBoard));
       dispatch(getUserTopEntry(activeLeaderBoard));
+      dispatch(getUserProgress(activeLeaderBoard));
       dispatch(setToUpdate(false));
     }
   }, [dispatch, activeLeaderBoard, toUpdate]);
@@ -51,7 +55,7 @@ function LeaderBoardDisplay() {
     return null;
   } else {
     return (
-      <div className="fixed top-0 left-0 bottom-0 right-0 bg-[#f5f5f5] flex flex-col z-20 items-center justify-center">
+      <div className="fixed top-0 left-0 bottom-0 right-0 bg-[#f5f5f5] flex flex-col z-20 items-center justify-center overflow-y-auto">
         <div className="flex w-full flex-col items-center gap-5">
           <div className="flex justify-between w-3/4 bg-white shadow-xl px-10 py-2 rounded-lg mt-2">
             <h1 className="font-poppins font-extrabold text-xl p-2">
@@ -68,11 +72,15 @@ function LeaderBoardDisplay() {
         </div>
         <div className="bg-white w-full mt-2 h-full rounded-t-lg flex">
           {/* Left Side is The actual leaderBoard */}
-          <div className="h-full m-2 w-[100%] md:w-[50%] flex flex-col">
+          <div className="h-full w-[100%] md:w-[50%] flex flex-col">
             <TopTen />
-            <div className="flex relative">
+          </div>
+          <div className="flex flex-col ml-5">
+            <UserTop />
+            <Progress />
+            <div className="flex">
               <button
-                className="transition duration-300 bg-[#2a90e9] rounded-md p-5 text-white hover:bg-white hover:border-2 hover:border-solid hover:border-[#2a90e9] hover:text-[#2a90e9] self-end mt-2 "
+                className="transition duration-300 bg-[#2a90e9] rounded-md p-5 text-white hover:bg-white hover:border-2 hover:border-solid hover:border-[#2a90e9] hover:text-[#2a90e9] self-end mx-5 "
                 onClick={() => dispatch(setAddEntryOpen())}
               >
                 New Entry
@@ -80,7 +88,6 @@ function LeaderBoardDisplay() {
               <AddEntry />
             </div>
           </div>
-          <UserTop />
         </div>
       </div>
     );

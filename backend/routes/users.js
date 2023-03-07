@@ -28,7 +28,9 @@ router.post("/", async (req, res) => {
         .send({ message: "User with given username already exists!" });
     }
 
+    //uses the SALT value in environment to generate a bcrypt salt
     const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    //uses the bcrypt salt to hash the password
     const hashPassword = await bcrypt.hash(req.body.password, salt);
 
     const result = await cloudinary.uploader.upload(image, {

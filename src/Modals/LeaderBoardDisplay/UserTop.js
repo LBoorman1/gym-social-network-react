@@ -8,23 +8,36 @@ function UserTop() {
     return date.toLocaleDateString();
   };
 
+  const leaderBoardName = useSelector(
+    (state) => state.leaderBoards.activeLeaderBoardName
+  );
+
   return (
-    <div className="grid grid-cols-10 gap-4 w-[50%]">
-      <div className="col-span-1">
-        <h1>Position</h1>
-        <h2>{userTop.position}</h2>
-      </div>
-      <div className="col-span-3">
-        <h1>Name</h1>
-        <h2>{userTop.user}</h2>
-      </div>
-      <div className="col-span-3">
-        <h1>Entry</h1>
-        <h2>{userTop.entry} Kg</h2>
-      </div>
-      <div className="col-span-3">
-        <h1>Date</h1>
-        <h2>{getFormattedDate(userTop.entryDate)}</h2>
+    <div className="flex flex-col mx-5 mt-2 mb-2 border-2 border-solid border-sky-700 h-fit rounded-lg bg-sky-50 p-5 drop-shadow-xl">
+      <h1 className="font-poppins font-bold text-sky-700 text-xl mb-2">
+        Your Top Entry In {leaderBoardName}
+      </h1>
+      <div className="grid grid-cols-10 gap-10">
+        <div className="col-span-2">
+          <h1 className="font-poppins text-xl text-center">Position</h1>
+          <h2 className="text-center font-poppins text-lg">
+            {userTop.position}
+          </h2>
+        </div>
+        <div className="col-span-3">
+          <h1 className="font-poppins text-xl">Name</h1>
+          <h2 className="font-poppins text-lg">{userTop.user}</h2>
+        </div>
+        <div className="col-span-2">
+          <h1 className="font-poppins text-xl">Entry</h1>
+          <h2 className="font-poppins text-lg">{userTop.entry} Kg</h2>
+        </div>
+        <div className="col-span-3">
+          <h1 className="font-poppins text-xl">Date</h1>
+          <h2 className="font-poppins text-lg">
+            {getFormattedDate(userTop.entryDate)}
+          </h2>
+        </div>
       </div>
     </div>
   );

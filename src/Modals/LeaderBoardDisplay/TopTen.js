@@ -11,7 +11,7 @@ function TopTen() {
 
   if (topTen.length == 0) {
     return (
-      <div className="table w-full pl-2">
+      <div className="table w-full p-5 border-2 border-sky-700 border-solid rounded-lg drop-shadow-xl bg-sky-50 mx-5 mt-2 mb-2 overflow-auto h-3/4">
         <div className="table-header-group w-full ">
           <div className="flex h-14 items-center justify-between w-full border-b border-solid border-black">
             <div className="table-cell w-1/4 font-poppins font-bold text-left">
@@ -42,7 +42,7 @@ function TopTen() {
     );
   } else {
     return (
-      <div className="table w-full pl-2">
+      <div className="table w-full p-5 border-2 border-sky-700 border-solid rounded-lg drop-shadow-xl bg-sky-50 mx-5 mt-2 mb-2 overflow-auto h-full">
         <div className="table-header-group w-full ">
           <div className="flex h-14 items-center justify-between w-full border-b border-solid border-black">
             <div className="table-cell w-1/4 font-poppins font-bold text-left">
