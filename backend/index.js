@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import util from "util";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
@@ -95,7 +96,7 @@ const deleteLeaderBoardUsers = async () => {
 
 const findAllEntries = async () => {
   const entries = await leaderBoardEntry.find({});
-  console.log(entries);
+  console.log(util.inspect(entries, false, null, true));
 };
 
 const deleteAllEntries = async () => {
@@ -127,7 +128,7 @@ const deleteAllDocuments = async () => {
 // deleteAllPosts();
 // deleteLeaderBoardUsers();
 // findLeaderBoardUsers();
-// findAllEntries();
+findAllEntries();
 // deleteAllEntries();
 // findAllComments();
 // deleteAllDocuments();

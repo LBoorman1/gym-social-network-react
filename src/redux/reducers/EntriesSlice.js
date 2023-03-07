@@ -92,6 +92,25 @@ export const getUserProgress = createAsyncThunk(
   }
 );
 
+export const addReport = createAsyncThunk(
+  "entries/addReport",
+  async (entryId, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorisation: `Bearer ${token}`,
+        },
+      };
+      const url = "http://localhost:5000/api/entries/addReport";
+      const res = await axios.post(url, entryId, config);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
 export const EntriesSlice = createSlice({
   name: "Entries",
   initialState,

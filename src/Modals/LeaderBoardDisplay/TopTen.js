@@ -1,12 +1,25 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EmptyRow from "./EmptyRow";
+import { ThumbDownIcon } from "@heroicons/react/solid";
+import { addReport } from "../../redux/reducers/EntriesSlice";
 
 function TopTen() {
+  const dispatch = useDispatch();
+
   const topTen = useSelector((state) => state.entries.topTenEntries);
   const getFormattedDate = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString();
+  };
+
+  const userEmail = useSelector((state) => state.users.emailAddress);
+
+  const userReported = (entry) => {
+    const containsUser = entry.reports.indexOf(userEmail); //this is defo wrong
+    if (containsUser) {
+      //add logic for checking whether user has already reported.
+    }
   };
 
   if (topTen.length == 0) {
@@ -73,8 +86,14 @@ function TopTen() {
             <div className="table-cell w-1/4 font-poppins">
               {`${entry.entry}  Kg`}
             </div>
-            <div className="table-cell w-1/4 font-poppins">
+            <div className="flex w-1/4 font-poppins gap-2 items-center">
               {getFormattedDate(entry.entryDate)}
+              <ThumbDownIcon
+                className={`w-5 h-5 text-sky-700 cursor-pointer ${
+                  userReported(entry) ? "text-sky-700" : "text-black"
+                }`}
+                onClick={() => dispatch(addReport(entry._id))}
+              />
             </div>
           </div>
         ))}

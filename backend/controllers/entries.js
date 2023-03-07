@@ -1,4 +1,5 @@
 import leaderBoardEntry from "../models/leaderBoardEntry.js";
+import { User } from "../models/user.js";
 
 //function for adding an entry to a leaderboard
 export const addEntry = async (req, res) => {
@@ -139,5 +140,22 @@ export const getUserProgress = async (req, res) => {
     res.status(200).json(toReturn);
   } catch (error) {
     res.status(401).json({ message: error.message });
+  }
+};
+
+// Need to include logic for checking whether the threshold for booting an entry it reached.
+export const addReport = async (req, res) => {
+  const entryId = Object.keys(req.body)[0];
+  const reporter = req.id;
+
+  //find the user object from the Id
+
+  try {
+    const updatedEntry = await leaderBoardEntry.findByIdAndUpdate(entryId, {
+      $addToSet: { reports: { reporters: reporter } },
+    });
+    res.status(200).json(updatedEntry);
+  } catch (error) {
+    res.status(409).json({ error: error.message });
   }
 };

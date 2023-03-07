@@ -2,6 +2,7 @@ import express from "express";
 
 import {
   addEntry,
+  addReport,
   getTopTenEntries,
   getUserProgress,
   getUserTopEntry,
@@ -15,5 +16,6 @@ router.post("/addEntry", authenticateToken, addEntry);
 router.get("/getTopTen", authenticateToken, getTopTenEntries);
 router.get("/getUserTop", authenticateToken, getUserTopEntry);
 router.get("/getUserProgress", authenticateToken, getUserProgress);
+router.post("/addReport", authenticateToken, addReport);
 
 export default router;

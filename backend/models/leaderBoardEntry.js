@@ -16,6 +16,15 @@ const leaderBoardEntrySchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  reports: [
+    {
+      _id: false,
+      reporters: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
+      },
+    },
+  ],
 });
 
 const leaderBoardEntry = mongoose.model(
