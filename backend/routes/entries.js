@@ -3,6 +3,7 @@ import express from "express";
 import {
   addEntry,
   getTopTenEntries,
+  getUserProgress,
   getUserTopEntry,
 } from "../controllers/entries.js";
 
@@ -13,5 +14,6 @@ const router = express.Router();
 router.post("/addEntry", authenticateToken, addEntry);
 router.get("/getTopTen", authenticateToken, getTopTenEntries);
 router.get("/getUserTop", authenticateToken, getUserTopEntry);
+router.get("/getUserProgress", authenticateToken, getUserProgress);
 
 export default router;

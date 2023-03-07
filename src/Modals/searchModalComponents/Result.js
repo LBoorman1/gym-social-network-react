@@ -20,14 +20,14 @@ function Result({ id, title, description }) {
   };
 
   return (
-    <div className="flex p-10 m-5 border border-black bg-slate-100 rounded-md justify-between">
+    <div className="flex p-10 m-5 border border-black bg-slate-100 rounded-md justify-between text-sky-700 h-fit">
       <div className="flex flex-col">
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <h1 className="font-poppins font-bold">{title}</h1>
+        <p className="font-poppins">{description}</p>
       </div>
       <div className="flex">
         <button
-          className="bg-[#79ADDC] border-2 rounded-lg px-5 hover:bg-[#79ADEE] border-solid"
+          className="bg-sky-100 hover:bg-sky-200 border-2 rounded-lg px-5  border-solid font-poppins border-sky-700 text-sky-700 font-bold"
           onClick={handleJoinCommunity}
         >
           Join

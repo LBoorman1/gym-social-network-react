@@ -41,18 +41,40 @@ function Register() {
   };
 
   return (
-    <div
-      className="flex items-center justify-center h-full"
-      //   style={{
-      //     backgroundImage: `url("https://media.istockphoto.com/photos/dumbbells-and-kettlebells-on-a-floor-bodybuilding-equipment-fitness-picture-id1307360297?k=20&m=1307360297&s=170667a&w=0&h=aRkT_smYFrXxjAK8ahmXCyVD_vESyYltkipD9qjjEw8=")`,
-      //     backgroundPosition: "center",
-      //     backgroundRepeat: "no-repeat",
-      //     backgroundSize: "cover",
-      //     width: "100vw",
-      //     height: "100vh",
-      //   }}
-    >
-      <div className="flex w-1/2 h-full bg-sky-100"></div>
+    <div className="flex items-center justify-center h-full">
+      <div className="flex flex-col w-1/2 h-full bg-gradient-to-t from-sky-200 via-sky-100 to-sky-300 justify-center items-center">
+        <div className="flex flex-col items-center m-10">
+          <h1 className="text-sky-700 font poppins font font-extrabold text-6xl">
+            FitFeed
+          </h1>
+          <h2 className="text-sky-600 text-xl font-poppins font-semibold">
+            Friendly competition to help you achieve your fitness goals!
+          </h2>
+        </div>
+        <div className="flex gap-10">
+          <div className="m-10 w-1/2 h-fit border-2 border-solid border-sky-700 bg-white rounded-lg p-5 text-center drop-shadow-2xl">
+            <p className="text-sky-600 font-poppins text-lg">
+              Create communities with your friends or fellow gym users and make
+              your gym experience much more social!
+            </p>
+          </div>
+          <div className="m-10 w-1/2 h-fit border-2 border-solid border-sky-700 bg-white drop-shadow-2xl rounded-lg p-5 text-center">
+            <p className="text-sky-600 font-poppins text-lg">
+              Leader boards within communities lead to friendly competition,
+              allowing you to gain new motivation to achieve your fitness goals.
+              Host events at your gym with timed leader boards, making the
+              competition heat up even more!
+            </p>
+          </div>
+        </div>
+        <div className="flex w-3/4 h-fit border-2 border-solid border-sky-700 rounded-lg p-5 text-center bg-white drop-shadow-2xl">
+          <p className="text-sky-600 font-poppins text-lg ">
+            Reporting leader board entries will help communities to become an
+            honest, fun environment and allow users to democratically remove
+            toxic users from their leader boards.
+          </p>
+        </div>
+      </div>
 
       <form
         className="flex flex-col items-center justify-center bg-white rounded w-1/2 h-full"

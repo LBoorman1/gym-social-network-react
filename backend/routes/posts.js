@@ -8,7 +8,7 @@ import { authenticateToken } from "../middlewares/authenticateToken.js";
 
 const router = express.Router();
 
-router.get("/", getPosts); //http://localhost:5000/posts
+router.get("/", getPosts);
 router.post("/create", authenticateToken, createPost);
 router.get("/retrieveByCommunity", authenticateToken, retrieveByCommunity);
 

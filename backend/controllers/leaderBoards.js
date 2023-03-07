@@ -104,7 +104,7 @@ export const joinLeaderBoard = async (req, res) => {
   try {
     await newLeaderBoardUser.save();
     await leaderBoard.findByIdAndUpdate(leaderBoardId, {
-      memberCount: memberCount++,
+      $inc: { memberCount: 1 },
     });
     const leaderBoardToAdd = await leaderBoard.findById(leaderBoardId);
     res.status(201).json({

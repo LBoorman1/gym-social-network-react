@@ -16,7 +16,6 @@ export const createPost = async (req, res) => {
     });
 
     if (userCheck) {
-      //cloudinary image upload stuff
       let result;
       if (fileSize >= 10485760) {
         result = await cloudinary.uploader.upload_large(image, {
@@ -28,6 +27,7 @@ export const createPost = async (req, res) => {
       } else {
         result = await cloudinary.uploader.upload(image, {
           folder: "posts",
+          resource_type: "auto",
         });
       }
 
@@ -56,30 +56,35 @@ export const createPost = async (req, res) => {
 export const getPosts = async (req, res) => {
   try {
     const postMessages = await PostMessage.find();
-
     res.status(200).json(postMessages);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
+//function to retrieve posts based on the selected community
 export const retrieveByCommunity = async (req, res) => {
   try {
-    const userId = req.id;
-    const communityId = req.query.communityId;
-
+    const userId = req.id; //taken from the authentication middleware
+    const communityId = req.query.communityId; //taken from request parameters
     if (!communityId) {
       res.status(404).json({ message: "Select a community to view posts" });
     } else {
+      //checks whether the user is a member in the community they are trying to view
       const userCheck = await CommunityUser.findOne({
         community: communityId,
         user: userId,
       });
 
       if (userCheck) {
+        //mongoose query for finding all postMessage documents where community has the
+        //id communityId, creator is a foreign key in postMessage and populate means
+        //that this data will also be displayed in the result.
         const posts = await PostMessage.find({
           community: communityId,
-        }).populate("creator");
+        })
+          .populate("creator")
+          .sort({ createdAt: -1 });
         const isEmpty = Object.keys(posts).length === 0;
         if (!isEmpty) {
           res.status(200).json(posts);
