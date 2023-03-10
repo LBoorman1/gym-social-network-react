@@ -25,6 +25,16 @@ const leaderBoardEntrySchema = new mongoose.Schema({
       },
     },
   ],
+  image: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
 });
 
 const leaderBoardEntry = mongoose.model(

@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EmptyRow from "./EmptyRow";
-import { ThumbDownIcon } from "@heroicons/react/solid";
-import { addReport } from "../../redux/reducers/EntriesSlice";
-
+import { ThumbDownIcon, FlagIcon } from "@heroicons/react/solid";
+import { addReport, setProofViewOpen } from "../../redux/reducers/EntriesSlice";
+import ProofView from "./ProofView";
 function TopTen() {
   const dispatch = useDispatch();
 
@@ -14,13 +14,6 @@ function TopTen() {
   };
 
   const userEmail = useSelector((state) => state.users.emailAddress);
-
-  const userReported = (entry) => {
-    const containsUser = entry.reports.indexOf(userEmail); //this is defo wrong
-    if (containsUser) {
-      //add logic for checking whether user has already reported.
-    }
-  };
 
   if (topTen.length == 0) {
     return (
@@ -83,20 +76,23 @@ function TopTen() {
             <div className="table-cell w-1/4 font-poppins">
               {entry.user.username}
             </div>
-            <div className="table-cell w-1/4 font-poppins">
+            <div className="flex w-1/4 font-poppins gap-2">
               {`${entry.entry}  Kg`}
+              <FlagIcon
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => dispatch(setProofViewOpen(entry))}
+              />
             </div>
             <div className="flex w-1/4 font-poppins gap-2 items-center">
               {getFormattedDate(entry.entryDate)}
               <ThumbDownIcon
-                className={`w-5 h-5 text-sky-700 cursor-pointer ${
-                  userReported(entry) ? "text-sky-700" : "text-black"
-                }`}
+                className={`w-5 h-5 text-sky-700 cursor-pointer`}
                 onClick={() => dispatch(addReport(entry._id))}
               />
             </div>
           </div>
         ))}
+        <ProofView />
       </div>
     );
   }

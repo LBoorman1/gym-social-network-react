@@ -95,7 +95,7 @@ const deleteLeaderBoardUsers = async () => {
 };
 
 const findAllEntries = async () => {
-  const entries = await leaderBoardEntry.find({});
+  const entries = await leaderBoardEntry.find({}).populate("leaderBoard");
   console.log(util.inspect(entries, false, null, true));
 };
 

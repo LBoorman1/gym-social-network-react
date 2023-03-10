@@ -8,6 +8,8 @@ const initialState = {
   toUpdate: false,
   userTopEntry: [],
   userProgress: [],
+  proofViewOpen: false,
+  activeEntry: null,
 };
 
 export const addLeaderBoardEntry = createAsyncThunk(
@@ -121,6 +123,10 @@ export const EntriesSlice = createSlice({
     setToUpdate: (state, action) => {
       state.toUpdate = action.payload;
     },
+    setProofViewOpen: (state, action) => {
+      state.proofViewOpen = !state.proofViewOpen;
+      state.activeEntry = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -140,6 +146,7 @@ export const EntriesSlice = createSlice({
   },
 });
 
-export const { setAddEntryOpen, setToUpdate } = EntriesSlice.actions;
+export const { setAddEntryOpen, setToUpdate, setProofViewOpen } =
+  EntriesSlice.actions;
 
 export default EntriesSlice.reducer;

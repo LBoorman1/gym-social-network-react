@@ -1,11 +1,14 @@
 import leaderBoardEntry from "../models/leaderBoardEntry.js";
 import { User } from "../models/user.js";
+import cloudinary from "../utils/cloudinary.js";
 
 //function for adding an entry to a leaderboard
 export const addEntry = async (req, res) => {
   const leaderBoardId = req.body.leaderBoardId;
   const user = req.id;
   const entry = req.body.entry;
+  const image = req.body.image;
+  const fileSize = req.headers["content-length"];
 
   //mongoose query to find if the user has a better leaderboard entry already
   //prevents a user at the top of the leaderboard from claiming the entire top
@@ -20,13 +23,31 @@ export const addEntry = async (req, res) => {
       .status(409)
       .send({ error: "User already has an entry better than this!" });
   }
-  const newLeaderBoardEntry = new leaderBoardEntry({
-    leaderBoard: leaderBoardId,
-    user: user,
-    entry: entry,
-  });
 
   try {
+    let result;
+    if (fileSize >= 10485760) {
+      result = await cloudinary.uploader.upload_large(image, {
+        folder: "entryProof",
+        resource_type: "video",
+        chunk_size: 20000000,
+      });
+      console.log(result);
+    } else {
+      result = await cloudinary.uploader.upload(image, {
+        folder: "entryProof",
+        resource_type: "auto",
+      });
+    }
+    const newLeaderBoardEntry = new leaderBoardEntry({
+      leaderBoard: leaderBoardId,
+      user: user,
+      entry: entry,
+      image: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
+    });
     await newLeaderBoardEntry.save();
     res.status(201).json({
       message: "Successfully added the entry",
