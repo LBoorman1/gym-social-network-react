@@ -142,6 +142,16 @@ export const EntriesSlice = createSlice({
       })
       .addCase(getUserProgress.fulfilled, (state, action) => {
         state.userProgress = action.payload;
+      })
+      .addCase(addReport.fulfilled, (state, action) => {
+        console.log(action.payload.message);
+        if (action.payload.message == "deleted the entry.") {
+          for (let i = 0; i < state.topTenEntries.length; i++) {
+            if (state.topTenEntries[i]._id == action.payload.entry) {
+              state.topTenEntries.splice(i, 1);
+            }
+          }
+        }
       });
   },
 });

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import CommunityWidget from "../components/communityWidget/CommunityWidget";
 import Feed from "../components/feedComponents/Feed";
 import NavBar from "../components/navbarComponents/NavBar";
-import AddPostButton from "../components/AddPostButton";
 import PostWidget from "../components/postWidget/PostWidget";
 import LeaderBoardWidget from "../components/leaderBoardWidget/LeaderBoardWidget";
 

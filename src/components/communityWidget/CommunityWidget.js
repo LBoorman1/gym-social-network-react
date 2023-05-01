@@ -39,6 +39,8 @@ function CommunityWidget() {
             key={community._id}
             _id={community._id}
             name={community.communityName}
+            description={community.description}
+            createdAt={community.createdAt}
             active={activeCommunity === community._id ? true : false}
           />
         ))}

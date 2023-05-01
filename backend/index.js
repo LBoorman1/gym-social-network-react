@@ -128,7 +128,7 @@ const deleteAllDocuments = async () => {
 // deleteAllPosts();
 // deleteLeaderBoardUsers();
 // findLeaderBoardUsers();
-findAllEntries();
+// findAllEntries();
 // deleteAllEntries();
 // findAllComments();
 // deleteAllDocuments();

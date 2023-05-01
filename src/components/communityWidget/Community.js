@@ -5,7 +5,7 @@ import { setActiveCommunity } from "../../redux/reducers/CommunitiesSlice";
 import { setPosts } from "../../redux/reducers/PostsSlice";
 
 //need to have an onCLick to set the active community
-function Community({ _id, name, active }) {
+function Community({ _id, name, active, description, createdAt }) {
   const dispatch = useDispatch();
 
   const activeCommunity = useSelector(
@@ -15,7 +15,14 @@ function Community({ _id, name, active }) {
   return (
     <div
       onClick={() => {
-        dispatch(setActiveCommunity({ id: _id, name: name }));
+        dispatch(
+          setActiveCommunity({
+            id: _id,
+            name: name,
+            description: description,
+            createdAt: createdAt,
+          })
+        );
         if (_id != activeCommunity) {
           dispatch(setPosts([]));
         }

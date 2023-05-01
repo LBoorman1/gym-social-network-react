@@ -65,21 +65,17 @@ export const getPosts = async (req, res) => {
 //function to retrieve posts based on the selected community
 export const retrieveByCommunity = async (req, res) => {
   try {
-    const userId = req.id; //taken from the authentication middleware
-    const communityId = req.query.communityId; //taken from request parameters
+    const userId = req.id;
+    const communityId = req.query.communityId;
     if (!communityId) {
       res.status(404).json({ message: "Select a community to view posts" });
     } else {
-      //checks whether the user is a member in the community they are trying to view
       const userCheck = await CommunityUser.findOne({
         community: communityId,
         user: userId,
       });
 
       if (userCheck) {
-        //mongoose query for finding all postMessage documents where community has the
-        //id communityId, creator is a foreign key in postMessage and populate means
-        //that this data will also be displayed in the result.
         const posts = await PostMessage.find({
           community: communityId,
         })

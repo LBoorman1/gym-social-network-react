@@ -169,13 +169,26 @@ export const addReport = async (req, res) => {
   const entryId = Object.keys(req.body)[0];
   const reporter = req.id;
 
-  //find the user object from the Id
-
   try {
     const updatedEntry = await leaderBoardEntry.findByIdAndUpdate(entryId, {
       $addToSet: { reports: { reporters: reporter } },
     });
-    res.status(200).json(updatedEntry);
+
+    //Figure out how to count the number of reports for the entry and delete the entry if there are too many
+    //Math.ceil(memberLimit/2) = limit
+
+    const entryObj = await leaderBoardEntry
+      .findById(entryId)
+      .populate("leaderBoard");
+
+    const reportLimit = Math.ceil(entryObj.leaderBoard.memberLimit / 2);
+    const reports = entryObj.reports.length;
+    if (reports >= reportLimit) {
+      await leaderBoardEntry.findByIdAndDelete(entryId);
+      res.status(200).json({ message: "deleted the entry.", entry: entryId });
+    } else {
+      res.status(200).json({ message: "added report", entry: entryId });
+    }
   } catch (error) {
     res.status(409).json({ error: error.message });
   }

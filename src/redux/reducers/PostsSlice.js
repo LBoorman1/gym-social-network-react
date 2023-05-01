@@ -62,7 +62,7 @@ export const PostsSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(addPost.fulfilled, (state, action) => {
-        state.posts.push(action.payload);
+        state.posts.unshift(action.payload);
       });
   },
 });

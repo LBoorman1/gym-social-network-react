@@ -9,6 +9,8 @@ const initialState = {
   communities: [],
   activeCommunity: null,
   activeCommunityName: "",
+  activeCommunityDescription: "",
+  activeCommunityCreatedAt: "",
 };
 
 export const getCommunities = createAsyncThunk(
@@ -54,6 +56,8 @@ export const CommunitiesSlice = createSlice({
     setActiveCommunity: (state, action) => {
       state.activeCommunity = action.payload.id;
       state.activeCommunityName = action.payload.name;
+      state.activeCommunityDescription = action.payload.description;
+      state.activeCommunityCreatedAt = action.payload.createdAt;
     },
     setCommunities: (state, action) => {
       state.communities = action.payload;
