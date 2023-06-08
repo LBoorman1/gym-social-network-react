@@ -1,7 +1,0 @@
-username: user
-password: Karate123@
-email: testing@testing.com
-
-user: Luke
-pass: Luke123@
-email: luke@luke.com
