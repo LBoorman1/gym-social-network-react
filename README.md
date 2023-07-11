@@ -1,2 +1,2 @@
 # Gym Social Network
-This is the repo for my third year project in which I am building a social network for gym users
+Repository for my final year dissertation project. This fitness social network was created entirely with javascript using React and Express.JS. 
