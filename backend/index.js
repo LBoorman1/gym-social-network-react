@@ -36,7 +36,7 @@ app.use("/api/entries", entryRoutes);
 app.use("/api/comments", commentRoutes);
 
 const CONNECTION_URL =
-  "REDACTED";
+  "connection_url_here";
 const PORT = process.env.PORT || 5000;
 
 mongoose
